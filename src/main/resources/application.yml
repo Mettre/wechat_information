@@ -1,0 +1,11 @@
+spring:
+    application:
+        name: eureka-information
+
+server:
+    port: 8762 #启动端口
+
+eureka:
+  client:
+      serviceUrl:
+                 defaultZone: http://localhost:8761/eureka/
