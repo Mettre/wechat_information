@@ -23,15 +23,14 @@
         select
         <include refid="Base_Column_List"/>
         from wc_read
-        where news_id = #{newsId,jdbcType=VARCHAR}
-        and (
-        <if test="readId != null">
-            #{readId,jdbcType=VARCHAR} or
+        where dynamic_id = #{dynamicId,jdbcType=VARCHAR}
+        and
+        <if test="readerId != null">
+            reader_id = #{readerId,jdbcType=VARCHAR}
         </if>
         <if test="readerEquipment != null">
-            #{readerEquipment,jdbcType=VARCHAR}
+            reader_equipment = #{readerEquipment,jdbcType=VARCHAR}
         </if>
-        )
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">

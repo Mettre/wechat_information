@@ -1,6 +1,7 @@
 package com.mettre.wechat_information.mapper;
 
 import com.mettre.wechat_information.pojo.Read;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,5 +22,5 @@ public interface ReadMapper {
 
     int updateByPrimaryKey(Read record);
 
-    Read selectByReaderIdOrEquipment(String newsId,String readId, String readerEquipment);
+    Read selectByReaderIdOrEquipment(@Param(value = "dynamicId")String dynamicId, @Param(value = "readerId")String readerId, @Param(value = "readerEquipment")String readerEquipment);
 }

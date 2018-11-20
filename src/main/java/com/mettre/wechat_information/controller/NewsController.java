@@ -1,17 +1,15 @@
 package com.mettre.wechat_information.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.wechat_information.base.Result;
 import com.mettre.wechat_information.base.ResultUtil;
 import com.mettre.wechat_information.pojo.News;
 import com.mettre.wechat_information.service.NewsService;
-import com.mettre.wechat_information.service.ReadService;
 import com.mettre.wechat_information.vm.NewsVM;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraints.NotBlank;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,9 +32,10 @@ public class NewsController {
         return new ResultUtil<>().setSuccess();
     }
 
-    @RequestMapping(value = "/findNewsDetails/{newsId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/findNewsDetails", method = RequestMethod.POST)
     @ApiOperation(value = "新闻详情")
-    public Result<Object> selectByPrimaryKey(String newsId, String readerId, String readerEquipment) {
+    public Result<Object> selectByPrimaryKey(@RequestParam String newsId, String readerId, String readerEquipment) {
+
         return new ResultUtil<>().setData(newsService.selectByPrimaryKey(newsId, readerId, readerEquipment));
     }
 

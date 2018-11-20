@@ -50,25 +50,25 @@ public class NewsServiceImpl implements NewsService {
         }
         News news = newsMapper.selectByPrimaryKey(newsId);
         if (news == null) {
-            addReadNum(newsId, readerId, readerEquipment);
             throw new CustomerException(ResultEnum.NEWSNULL);
         }
+        addReadNum(newsId, readerId, readerEquipment);
         return news;
     }
 
-    public void addReadNum(String newsId, String readerId, String readerEquipment) {
+    //新增阅读
+    public void addReadNum(String dynamicId, String readerId, String readerEquipment) {
         Read read = null;
-        if (StrUtil.isBlank(readerId) || StrUtil.isBlank(readerEquipment)) {
+        if (StrUtil.isBlank(readerId) && StrUtil.isBlank(readerEquipment)) {
 
-        } else if (StrUtil.isBlank(readerId)) {
-            read = readMapper.selectByReaderIdOrEquipment(newsId, readerId, readerEquipment);
-
+        } else if (StrUtil.isNotBlank(readerId) && StrUtil.isNotBlank(readerEquipment)) {
+            read = readMapper.selectByReaderIdOrEquipment(dynamicId, readerId, null);
+        }else {
+            read = readMapper.selectByReaderIdOrEquipment(dynamicId, readerId, readerEquipment);
         }
-
         if (read == null) {
-
+            readMapper.insert(new Read(dynamicId, DynamicTypeEnum.NEWS, readerId, readerEquipment));
         }
-        readMapper.insert(new Read(newsId, DynamicTypeEnum.NEWS, readerId, readerEquipment));
     }
 
     @Override
