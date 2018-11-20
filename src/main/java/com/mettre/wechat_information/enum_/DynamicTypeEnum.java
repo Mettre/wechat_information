@@ -1,0 +1,25 @@
+package com.mettre.wechat_information.enum_;
+
+public enum DynamicTypeEnum {
+
+    NEWS("新闻"), MOMENTS("说说"), FORUM("广场");
+
+    public String dynamicType;
+
+    DynamicTypeEnum(String dynamicType) {
+        this.dynamicType = dynamicType;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    public String getDynamicType() {
+        return dynamicType;
+    }
+
+    public void setDynamicType(String dynamicType) {
+        this.dynamicType = dynamicType;
+    }
+}

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mettre.wechat_information.mapper.ReadMapper">
+    <resultMap id="BaseResultMap" type="com.mettre.wechat_information.pojo.Read">
+        <id column="read_id" property="readId" jdbcType="VARCHAR"/>
+        <result column="dynamic_id" property="dynamicId" jdbcType="VARCHAR"/>
+        <result column="dynamic_type" property="dynamicType" jdbcType="VARCHAR"/>
+        <result column="reader_id" property="readerId" jdbcType="VARCHAR"/>
+        <result column="reader_equipment" property="readerEquipment" jdbcType="VARCHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    read_id, dynamic_id, dynamic_type, reader_id, reader_equipment, creation_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from wc_read
+        where read_id = #{readId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByReaderIdOrEquipment" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from wc_read
+        where news_id = #{newsId,jdbcType=VARCHAR}
+        and (
+        <if test="readId != null">
+            #{readId,jdbcType=VARCHAR} or
+        </if>
+        <if test="readerEquipment != null">
+            #{readerEquipment,jdbcType=VARCHAR}
+        </if>
+        )
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from wc_read
+    where read_id = #{readId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.mettre.wechat_information.pojo.Read">
+    insert into wc_read (read_id, dynamic_id, dynamic_type, 
+      reader_id, reader_equipment, creation_time
+      )
+    values (#{readId,jdbcType=VARCHAR}, #{dynamicId,jdbcType=VARCHAR}, #{dynamicType,jdbcType=VARCHAR}, 
+      #{readerId,jdbcType=VARCHAR}, #{readerEquipment,jdbcType=VARCHAR}, #{creationTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.mettre.wechat_information.pojo.Read">
+        insert into wc_read
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="readId != null">
+                read_id,
+            </if>
+            <if test="dynamicId != null">
+                dynamic_id,
+            </if>
+            <if test="dynamicType != null">
+                dynamic_type,
+            </if>
+            <if test="readerId != null">
+                reader_id,
+            </if>
+            <if test="readerEquipment != null">
+                reader_equipment,
+            </if>
+            <if test="creationTime != null">
+                creation_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="readId != null">
+                #{readId,jdbcType=VARCHAR},
+            </if>
+            <if test="dynamicId != null">
+                #{dynamicId,jdbcType=VARCHAR},
+            </if>
+            <if test="dynamicType != null">
+                #{dynamicType,jdbcType=VARCHAR},
+            </if>
+            <if test="readerId != null">
+                #{readerId,jdbcType=VARCHAR},
+            </if>
+            <if test="readerEquipment != null">
+                #{readerEquipment,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTime != null">
+                #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mettre.wechat_information.pojo.Read">
+        update wc_read
+        <set>
+            <if test="dynamicId != null">
+                dynamic_id = #{dynamicId,jdbcType=VARCHAR},
+            </if>
+            <if test="dynamicType != null">
+                dynamic_type = #{dynamicType,jdbcType=VARCHAR},
+            </if>
+            <if test="readerId != null">
+                reader_id = #{readerId,jdbcType=VARCHAR},
+            </if>
+            <if test="readerEquipment != null">
+                reader_equipment = #{readerEquipment,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTime != null">
+                creation_time = #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where read_id = #{readId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.mettre.wechat_information.pojo.Read">
+    update wc_read
+    set dynamic_id = #{dynamicId,jdbcType=VARCHAR},
+      dynamic_type = #{dynamicType,jdbcType=VARCHAR},
+      reader_id = #{readerId,jdbcType=VARCHAR},
+      reader_equipment = #{readerEquipment,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP}
+    where read_id = #{readId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -5,6 +5,8 @@ import com.mettre.wechat_information.pojo.News;
 import org.springframework.stereotype.Component;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 
 @Component
 public interface NewsMapper {
@@ -20,5 +22,5 @@ public interface NewsMapper {
 
     int updateByPrimaryKey(News record);
 
-    Page<News> selectPageVo(Page<News> page, @Param(value = "categoryId") Long categoryId);
+    List<News> selectPageVo(Page<News> page, @Param(value = "categoryId") Long categoryId);
 }

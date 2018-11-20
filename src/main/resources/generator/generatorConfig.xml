@@ -77,6 +77,16 @@
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--enableUpdateByExample="false">-->
         <!--</table>-->
+        <!--<table tableName="wc_reply"-->
+               <!--domainObjectName="Reply" enableCountByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false">-->
+        <!--</table>-->
+        <!--<table tableName="wc_read"-->
+               <!--domainObjectName="Read" enableCountByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false">-->
+        <!--</table>-->
 
     </context>
 </generatorConfiguration>

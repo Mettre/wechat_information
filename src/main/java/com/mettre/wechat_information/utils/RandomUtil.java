@@ -47,7 +47,7 @@ public final class RandomUtil {
         return "B" + DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(4);
     }
 
-    public static String generateRefundNumber() {
+    public static String ReadInformationNumber() {
         return "R" + DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(4);
     }
 

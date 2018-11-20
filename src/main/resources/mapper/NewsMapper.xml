@@ -154,6 +154,9 @@
     <select id="selectPageVo" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"></include>
-        FROM categoryId WHERE category_id=#{categoryId}
+        FROM wc_news
+        <if test="categoryId != null and categoryId > 0 ">
+            WHERE category_id=#{categoryId}
+        </if>
     </select>
 </mapper>

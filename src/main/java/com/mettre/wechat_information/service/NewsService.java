@@ -12,7 +12,7 @@ public interface NewsService {
 
     int insertSelective(News record);
 
-    News selectByPrimaryKey(String newsId);
+    News selectByPrimaryKey(String newsId, String readerId, String readerEquipment);
 
     int updateByPrimaryKeySelective(News record);
 

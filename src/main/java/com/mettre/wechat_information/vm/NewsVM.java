@@ -9,7 +9,7 @@ public class NewsVM {
     @NotBlank(message = "请输入新闻标题")
     private String newsTitle;
 
-    @NotBlank(message = "作者不能为空")
+    @NotBlank(message = "新闻作者不能为空")
     private String publisherUserId;
 
     @NotBlank(message = "请输入新闻链接")
