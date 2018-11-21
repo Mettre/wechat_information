@@ -1,7 +1,10 @@
 package com.mettre.wechat_information.pojo;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class Category {
     private Long categoryId;
 

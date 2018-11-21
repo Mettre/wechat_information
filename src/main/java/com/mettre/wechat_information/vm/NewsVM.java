@@ -16,4 +16,7 @@ public class NewsVM {
     private String newsLink;
 
     private String newsImage;
+
+    @NotBlank(message = "分类不能为空")
+    private Long category;
 }

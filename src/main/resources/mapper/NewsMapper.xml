@@ -12,17 +12,37 @@
         <result column="read_num" property="readNum" jdbcType="INTEGER"/>
         <result column="news_image" property="newsImage" jdbcType="VARCHAR"/>
         <result column="comment_num" property="commentNum" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="head_avatar" property="headAvatar" jdbcType="VARCHAR"/>
+        <result column="category_name" property="categoryName" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
     news_id, news_title, publisher_user_id, creation_time, update_time, news_link,
     read_num, news_image, comment_num
   </sql>
+    <sql id="Base_Column_Details">
+    wc_news.news_id, wc_news.news_title, wc_news.publisher_user_id, wc_news.creation_time, wc_news.update_time, wc_news.news_link,
+    wc_news.news_image,wc_user.user_name,wc_user.head_avatar,wc_category.category_name
+  </sql>
+
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_Details"/>
+        , (select count(*) from wc_read where dynamic_id = #{newsId,jdbcType=VARCHAR})
+        as read_num
+        , (select count(*) from wc_reply where dynamic_id = #{newsId,jdbcType=VARCHAR})
+        as comment_num
         from wc_news
-        where news_id = #{newsId,jdbcType=VARCHAR}
+        left join wc_user
+        on wc_news.publisher_user_id = wc_user.user_id
+        left join wc_category
+        on wc_news.category = wc_category.category_id
+        where wc_news.news_id = #{newsId,jdbcType=VARCHAR}
+
     </select>
+
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from wc_news
     where news_id = #{newsId,jdbcType=VARCHAR}
@@ -31,11 +51,11 @@
     insert into wc_news (news_id, news_title, publisher_user_id,
       creation_time, update_time, is_show,
       news_link, read_num, news_image,
-      comment_num)
+      comment_num,category)
     values (#{newsId,jdbcType=VARCHAR}, #{newsTitle,jdbcType=VARCHAR}, #{publisherUserId,jdbcType=VARCHAR},
       #{creationTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isShow,jdbcType=TINYINT},
       #{newsLink,jdbcType=VARCHAR}, #{readNum,jdbcType=INTEGER}, #{newsImage,jdbcType=VARCHAR},
-      #{commentNum,jdbcType=INTEGER})
+      #{commentNum,jdbcType=INTEGER},#{category,jdbcType=BIGINT})
   </insert>
     <insert id="insertSelective" parameterType="com.mettre.wechat_information.pojo.News">
         insert into wc_news
@@ -70,6 +90,9 @@
             <if test="commentNum != null">
                 comment_num,
             </if>
+            <if test="category != null">
+                category,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="newsId != null">
@@ -101,6 +124,9 @@
             </if>
             <if test="commentNum != null">
                 #{commentNum,jdbcType=INTEGER},
+            </if>
+            <if test="category != null">
+                #{category,jdbcType=BIGINT},
             </if>
         </trim>
     </insert>
@@ -155,8 +181,8 @@
         SELECT
         <include refid="Base_Column_List"></include>
         FROM wc_news
-        <if test="categoryId != null and categoryId > 0 ">
-            WHERE category_id=#{categoryId}
+        <if test="category != null and category > 0 ">
+            WHERE category = #{category}
         </if>
     </select>
 </mapper>

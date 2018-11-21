@@ -3,7 +3,6 @@ package com.mettre.wechat_information.enum_;
 public enum ResultEnum {
 
 
-
     OK("200", "成功"),
     SINGTIMEOUT("400", "超时"),
     UNREGISTER("E107", "该手机号未注册"),
@@ -12,6 +11,8 @@ public enum ResultEnum {
     CATEGORYCREATED("E110", "该分类已创建"),
     NEWSNULL("E111", "新闻不存在"),
     NEWSIDNOTEMPTY("E112", "新闻id为空"),
+    COMMENTARYDELETING("E113", "该条评论已被删除，无法评论"),
+    DYNAMICTYPE("E114", "资讯类型不能为空"),
     PERMISSION_DENIED("E401", "未登录");
 
     private String code;

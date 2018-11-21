@@ -33,6 +33,15 @@ public class News {
 
     private Integer commentNum;
 
+    private Long category;
+
+    private String categoryName;
+
+    private String userName;//昵称
+
+    private String headAvatar;//头像
+
+
     public News() {
 
     }
@@ -48,10 +57,11 @@ public class News {
         this.newsLink = newsVM.getNewsLink();
         this.readNum = 0;
         this.newsImage = newsVM.getNewsImage();
+        this.category = newsVM.getCategory();
         this.commentNum = 0;
     }
 
-    public News(String newsId, String newsTitle, String publisherUserId, Date creationTime, Date updateTime, Boolean isShow, String newsLink, Integer readNum, String newsImage, Integer commentNum) {
+    public News(String newsId, String newsTitle, String publisherUserId, Date creationTime, Date updateTime, Boolean isShow, String newsLink, Integer readNum, String newsImage, Integer commentNum, Long category) {
         this.newsId = newsId;
         this.newsTitle = newsTitle;
         this.publisherUserId = publisherUserId;
@@ -59,6 +69,7 @@ public class News {
         this.updateTime = updateTime;
         this.isShow = isShow;
         this.newsLink = newsLink;
+        this.category = category;
         this.readNum = readNum;
         this.newsImage = newsImage;
         this.commentNum = commentNum;

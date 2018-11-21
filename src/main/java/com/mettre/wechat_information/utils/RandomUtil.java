@@ -47,8 +47,20 @@ public final class RandomUtil {
         return "B" + DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(4);
     }
 
+    /**
+     * 阅读id
+     * @return
+     */
     public static String ReadInformationNumber() {
         return "R" + DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(4);
+    }
+
+    /**
+     * 评论id
+     * @return
+     */
+    public static String ReplyInformationNumber() {
+        return "RP" + DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(4);
     }
 
     public static String generateUserId() {

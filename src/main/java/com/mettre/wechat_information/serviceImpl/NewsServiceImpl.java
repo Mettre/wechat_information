@@ -60,7 +60,7 @@ public class NewsServiceImpl implements NewsService {
     public void addReadNum(String dynamicId, String readerId, String readerEquipment) {
         Read read = null;
         if (StrUtil.isBlank(readerId) && StrUtil.isBlank(readerEquipment)) {
-
+            return;
         } else if (StrUtil.isNotBlank(readerId) && StrUtil.isNotBlank(readerEquipment)) {
             read = readMapper.selectByReaderIdOrEquipment(dynamicId, readerId, null);
         }else {

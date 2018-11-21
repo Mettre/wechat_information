@@ -11,7 +11,7 @@ public class ReadVM {
     @NotBlank(message = "请输入资讯id")
     private String dynamicId;
 
-    @NotBlank(message = "请输入资讯类别")
+    @NotBlank(message = "请选择资讯类别")
     private DynamicTypeEnum dynamicType;
 
     private String readerId;

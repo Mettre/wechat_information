@@ -22,4 +22,13 @@ public enum DynamicTypeEnum {
     public void setDynamicType(String dynamicType) {
         this.dynamicType = dynamicType;
     }
+
+    public static boolean contains(String dynamicType) {
+        for (DynamicTypeEnum typeEnum : DynamicTypeEnum.values()) {
+            if (typeEnum.name().equals(dynamicType)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
