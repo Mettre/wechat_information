@@ -33,15 +33,14 @@ public class ReplyController {
         return new ResultUtil<>().setSuccess();
     }
 
-    @RequestMapping(value = "/findReplyList", method = RequestMethod.POST)
-    @ApiOperation(value = "评论列表")
+    @RequestMapping(value = "/findNewsReplyList", method = RequestMethod.POST)
+    @ApiOperation(value = "新闻评论列表")
     public Result<Object> findCategoryList(@RequestBody HashMap<String, Object> map) {
         Integer page = Integer.parseInt(map.get("page").toString());
         Integer size = Integer.parseInt(map.get("size").toString());
         String dynamicId = map.get("dynamicId").toString();
-        DynamicTypeEnum dynamicTypeEnum = DynamicTypeEnum.valueOf(map.get("dynamicType").toString());
         Page<Reply> page2 = new Page<>(page, size);
-        Page<Reply> addressList = replyService.selectPageVo(page2, dynamicId, dynamicTypeEnum);
+        Page<Reply> addressList = replyService.selectPageVo(page2, dynamicId);
         return new ResultUtil<>().setData(addressList);
     }
 

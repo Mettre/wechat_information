@@ -37,14 +37,20 @@ public class ReplyServiceImpl implements ReplyService {
         if (!DynamicTypeEnum.contains(replyVM.getDynamicType().dynamicType)) {
             throw new CustomerException(ResultEnum.DYNAMICTYPE);
         }
-        newsService.selectByPrimaryKey(replyVM.getDynamicId(), null, null);
-        if (StrUtil.isNotBlank(replyVM.getReplyParentId())) {
-            Reply reply = replyMapper.selectByPrimaryKey(replyVM.getReplyParentId());
-            if (reply == null) {
-                throw new CustomerException(ResultEnum.COMMENTARYDELETING);
-            } else {
-                return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId()));
-            }
+        switch (replyVM.getDynamicType()) {
+            case NEWS:
+                newsService.selectByPrimaryKey(replyVM.getDynamicId(), null, null);
+                break;
+            case MOMENTS:
+
+                break;
+            case FORUM:
+
+                break;
+        }
+
+        if (StrUtil.isNotBlank(replyVM.getReplyParentUserId())) {//新闻跟朋友圈评论---贴吧是另一种新模式
+            return replyMapper.insert(new Reply(replyVM, replyVM.getReplyParentUserId()));
         } else {
             return replyMapper.insert(new Reply(replyVM));
         }
@@ -71,8 +77,8 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public Page<Reply> selectPageVo(Page<Reply> page, String dynamicId, DynamicTypeEnum dynamicTypeEnum) {
-        List<Reply> addressList = (List<Reply>) replyMapper.selectPageVo(page, dynamicId, dynamicTypeEnum);
+    public Page<Reply> selectPageVo(Page<Reply> page, String dynamicId) {
+        List<Reply> addressList = (List<Reply>) replyMapper.selectPageVo(page, dynamicId);
         page = page.setRecords(addressList);
         return page;
     }

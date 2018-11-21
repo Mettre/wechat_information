@@ -3,18 +3,19 @@
 <mapper namespace="com.mettre.wechat_information.mapper.ReplyMapper">
     <resultMap id="BaseResultMap" type="com.mettre.wechat_information.pojo.Reply">
         <id column="reply_id" property="replyId" jdbcType="VARCHAR"/>
-        <result column="reply_parent_id" property="replyParentId" jdbcType="VARCHAR"/>
         <result column="dynamic_id" property="dynamicId" jdbcType="VARCHAR"/>
         <result column="reply_parent_user_id" property="replyParentUserId" jdbcType="VARCHAR"/>
         <result column="dynamic_user_id" property="dynamicUserId" jdbcType="VARCHAR"/>
         <result column="reply_content" property="replyContent" jdbcType="VARCHAR"/>
         <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
         <result column="is_show" property="isShow" jdbcType="TINYINT"/>
-        <result column="dynamic_type" property="dynamicType" jdbcType="VARCHAR"/>
+        <result column="user_name" property="replyParentUserName" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="head_avatar" property="headAvatar" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    reply_id, reply_parent_id, dynamic_id, reply_parent_user_id, dynamic_user_id, reply_content, 
-    creation_time, is_show, dynamic_type
+    reply_id, dynamic_id, reply_parent_user_id, dynamic_user_id, reply_content,
+    wc_reply.creation_time, wc_reply.is_show,wc_user.user_name,wc_user.head_avatar
   </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -30,11 +31,11 @@
   </delete>
 
     <insert id="insert" parameterType="com.mettre.wechat_information.pojo.Reply">
-    insert into wc_reply (reply_id, reply_parent_id, dynamic_id, 
+    insert into wc_reply (reply_id, dynamic_id,
       reply_parent_user_id, dynamic_user_id, reply_content, 
       creation_time, is_show, dynamic_type
       )
-    values (#{replyId,jdbcType=VARCHAR}, #{replyParentId,jdbcType=VARCHAR}, #{dynamicId,jdbcType=VARCHAR}, 
+    values (#{replyId,jdbcType=VARCHAR}, #{dynamicId,jdbcType=VARCHAR},
       #{replyParentUserId,jdbcType=VARCHAR}, #{dynamicUserId,jdbcType=VARCHAR}, #{replyContent,jdbcType=VARCHAR}, 
       #{creationTime,jdbcType=TIMESTAMP}, #{isShow,jdbcType=TINYINT}, #{dynamicType,jdbcType=VARCHAR}
       )
@@ -45,9 +46,6 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="replyId != null">
                 reply_id,
-            </if>
-            <if test="replyParentId != null">
-                reply_parent_id,
             </if>
             <if test="dynamicId != null">
                 dynamic_id,
@@ -74,9 +72,6 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="replyId != null">
                 #{replyId,jdbcType=VARCHAR},
-            </if>
-            <if test="replyParentId != null">
-                #{replyParentId,jdbcType=VARCHAR},
             </if>
             <if test="dynamicId != null">
                 #{dynamicId,jdbcType=VARCHAR},
@@ -105,9 +100,6 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.mettre.wechat_information.pojo.Reply">
         update wc_reply
         <set>
-            <if test="replyParentId != null">
-                reply_parent_id = #{replyParentId,jdbcType=VARCHAR},
-            </if>
             <if test="dynamicId != null">
                 dynamic_id = #{dynamicId,jdbcType=VARCHAR},
             </if>
@@ -134,16 +126,33 @@
     </update>
 
     <update id="updateByPrimaryKey" parameterType="com.mettre.wechat_information.pojo.Reply">
-    update wc_reply
-    set reply_parent_id = #{replyParentId,jdbcType=VARCHAR},
-      dynamic_id = #{dynamicId,jdbcType=VARCHAR},
+     update wc_reply
+     set dynamic_id = #{dynamicId,jdbcType=VARCHAR},
       reply_parent_user_id = #{replyParentUserId,jdbcType=VARCHAR},
       dynamic_user_id = #{dynamicUserId,jdbcType=VARCHAR},
       reply_content = #{replyContent,jdbcType=VARCHAR},
       creation_time = #{creationTime,jdbcType=TIMESTAMP},
       is_show = #{isShow,jdbcType=TINYINT},
       dynamic_type = #{dynamicType,jdbcType=VARCHAR}
-    where reply_id = #{replyId,jdbcType=VARCHAR}
+     where reply_id = #{replyId,jdbcType=VARCHAR}
   </update>
+
+
+    <!--新闻评论列表-->
+    <select id="selectPageVo" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        ,(select user_name from wc_user where user_id = #{replyParentUserId,jdbcType=VARCHAR})
+        as reply_parent_user_name
+        FROM wc_reply
+        left join wc_user
+        on wc_reply.dynamic_user_id = wc_user.user_id
+        left join wc_user
+        on wc_reply.reply_parent_user_id = wc_user.user_id
+        <if test="dynamicId != null">
+            WHERE wc_reply.dynamic_id = #{dynamicId,jdbcType=VARCHAR}
+        </if>
+        order by creation_time asc
+    </select>
 
 </mapper>

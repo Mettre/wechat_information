@@ -12,9 +12,7 @@ public class Reply {
 
     private String replyId;
 
-    private String replyParentId;
-
-    private String dynamicId;
+    private String dynamicId;//资讯id
 
     private String replyParentUserId;//被回复人的用户id
 
@@ -35,9 +33,8 @@ public class Reply {
     private String headAvatar;//头像
 
     //二级评论
-    public Reply(ReplyVM replyVM, String replyParentId, String replyParentUserId) {
+    public Reply(ReplyVM replyVM,String replyParentUserId) {
         this.replyId = RandomUtil.ReplyInformationNumber();
-        this.replyParentId = replyParentId;
         this.dynamicId = replyVM.getDynamicId();
         this.replyParentUserId = replyParentUserId;
         this.dynamicUserId = replyVM.getDynamicUserId();

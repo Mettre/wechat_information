@@ -26,6 +26,6 @@ public interface ReplyMapper {
 
     int updateByPrimaryKey(Reply record);
 
-    List<Reply> selectPageVo(Page<Reply> page, @Param(value = "dynamicId") String dynamicId,@Param(value = "dynamicTypeEnum") DynamicTypeEnum dynamicTypeEnum);
+    List<Reply> selectPageVo(Page<Reply> page, @Param(value = "dynamicId") String dynamicId);
 
 }

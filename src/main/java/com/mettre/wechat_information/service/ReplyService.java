@@ -19,5 +19,5 @@ public interface ReplyService {
 
     int updateByPrimaryKey(Reply record);
 
-    Page<Reply> selectPageVo(Page<Reply> page, String dynamicId, DynamicTypeEnum dynamicTypeEnum);
+    Page<Reply> selectPageVo(Page<Reply> page, String dynamicId);
 }
