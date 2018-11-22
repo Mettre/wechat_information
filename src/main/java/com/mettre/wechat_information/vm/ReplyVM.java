@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Data
 public class ReplyVM {
 
-    private String replyParentUserId;
+    private String replyParentId;//该评论的父id可空
 
     @NotBlank(message = "资讯id不能为空")
     private String dynamicId;

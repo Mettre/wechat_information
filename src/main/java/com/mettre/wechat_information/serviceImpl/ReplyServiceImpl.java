@@ -10,6 +10,8 @@ import com.mettre.wechat_information.pojo.Reply;
 import com.mettre.wechat_information.service.NewsService;
 import com.mettre.wechat_information.service.ReplyService;
 import com.mettre.wechat_information.vm.ReplyVM;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,9 @@ import java.util.List;
 @Service
 @Transactional
 public class ReplyServiceImpl implements ReplyService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ReplyServiceImpl.class);
+
 
     @Autowired
     public ReplyMapper replyMapper;
@@ -34,26 +39,38 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public int insert(ReplyVM replyVM) {
 
-        if (!DynamicTypeEnum.contains(replyVM.getDynamicType().dynamicType)) {
+        if (!DynamicTypeEnum.contains(replyVM.getDynamicType().name())) {
             throw new CustomerException(ResultEnum.DYNAMICTYPE);
         }
         switch (replyVM.getDynamicType()) {
             case NEWS:
                 newsService.selectByPrimaryKey(replyVM.getDynamicId(), null, null);
-                break;
+                if (StrUtil.isNotBlank(replyVM.getReplyParentId())) {
+                    Reply reply = replyMapper.selectByPrimaryKey(replyVM.getReplyParentId());
+                    if (reply == null) {
+                        throw new CustomerException(ResultEnum.COMMENTARYDELETING);
+                    } else {
+                        if (StrUtil.isNotBlank(reply.getSecondDynamicId())) {
+                            return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getSecondDynamicId()));
+                        } else {
+                            return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getReplyId()));
+                        }
+                    }
+                } else {
+                    return replyMapper.insert(new Reply(replyVM));
+                }
+
             case MOMENTS:
+                return replyMapper.insert(new Reply(replyVM));
 
-                break;
             case FORUM:
+                return replyMapper.insert(new Reply(replyVM));
 
-                break;
+            default:
+                return replyMapper.insert(new Reply(replyVM));
+
         }
 
-        if (StrUtil.isNotBlank(replyVM.getReplyParentUserId())) {//新闻跟朋友圈评论---贴吧是另一种新模式
-            return replyMapper.insert(new Reply(replyVM, replyVM.getReplyParentUserId()));
-        } else {
-            return replyMapper.insert(new Reply(replyVM));
-        }
     }
 
     @Override

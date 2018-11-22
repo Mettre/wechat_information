@@ -2,7 +2,6 @@ package com.mettre.wechat_information.mapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.wechat_information.enum_.DynamicTypeEnum;
-import com.mettre.wechat_information.pojo.News;
 import com.mettre.wechat_information.pojo.Reply;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
