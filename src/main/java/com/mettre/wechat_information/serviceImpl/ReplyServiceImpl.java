@@ -99,4 +99,11 @@ public class ReplyServiceImpl implements ReplyService {
         page = page.setRecords(addressList);
         return page;
     }
+
+    @Override
+    public Page<Reply> selectMomentsPageVo(Page<Reply> page, String dynamicId) {
+        List<Reply> addressList = (List<Reply>) replyMapper.selectMomentsPageVo(page, dynamicId);
+        page = page.setRecords(addressList);
+        return page;
+    }
 }

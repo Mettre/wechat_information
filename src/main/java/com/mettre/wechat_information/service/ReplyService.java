@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.wechat_information.enum_.DynamicTypeEnum;
 import com.mettre.wechat_information.pojo.Reply;
 import com.mettre.wechat_information.vm.ReplyVM;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ReplyService {
 
@@ -20,4 +23,6 @@ public interface ReplyService {
     int updateByPrimaryKey(Reply record);
 
     Page<Reply> selectPageVo(Page<Reply> page, String dynamicId);
+
+    Page<Reply> selectMomentsPageVo(Page<Reply> page, String dynamicId);
 }

@@ -44,4 +44,15 @@ public class ReplyController {
         return new ResultUtil<>().setData(addressList);
     }
 
+    @RequestMapping(value = "/findMomentsReplyList", method = RequestMethod.POST)
+    @ApiOperation(value = "微信评论列表")
+    public Result<Object> findMomentsCategoryList(@RequestBody HashMap<String, Object> map) {
+        Integer page = Integer.parseInt(map.get("page").toString());
+        Integer size = Integer.parseInt(map.get("size").toString());
+        String dynamicId = map.get("dynamicId").toString();
+        Page<Reply> page2 = new Page<>(page, size);
+        Page<Reply> addressList = replyService.selectMomentsPageVo(page2, dynamicId);
+        return new ResultUtil<>().setData(addressList);
+    }
+
 }
