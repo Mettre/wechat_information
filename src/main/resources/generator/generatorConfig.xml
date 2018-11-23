@@ -51,39 +51,44 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-         <!--配置表信息 -->
+        <!--配置表信息 -->
         <!--<table tableName="wc_visitor"-->
-               <!--domainObjectName="Visitor" enableCountByExample="false"-->
-               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
-               <!--enableUpdateByExample="false">-->
+        <!--domainObjectName="Visitor" enableCountByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--enableUpdateByExample="false">-->
         <!--</table>-->
         <!--<table tableName="wc_user"-->
-               <!--domainObjectName="User" enableCountByExample="false"-->
-               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
-               <!--enableUpdateByExample="false">-->
+        <!--domainObjectName="User" enableCountByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--enableUpdateByExample="false">-->
         <!--</table>-->
         <!--<table tableName="wc_sms"-->
-               <!--domainObjectName="Sms" enableCountByExample="false"-->
-               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
-               <!--enableUpdateByExample="false">-->
+        <!--domainObjectName="Sms" enableCountByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--enableUpdateByExample="false">-->
         <!--</table>-->
         <!--<table tableName="wc_category"-->
-               <!--domainObjectName="Category" enableCountByExample="false"-->
-               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
-               <!--enableUpdateByExample="false">-->
+        <!--domainObjectName="Category" enableCountByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--enableUpdateByExample="false">-->
         <!--</table>-->
         <!--<table tableName="wc_news"-->
-               <!--domainObjectName="News" enableCountByExample="false"-->
-               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
-               <!--enableUpdateByExample="false">-->
+        <!--domainObjectName="News" enableCountByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--enableUpdateByExample="false">-->
         <!--</table>-->
         <!--<table tableName="wc_reply"-->
-               <!--domainObjectName="Reply" enableCountByExample="false"-->
-               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
-               <!--enableUpdateByExample="false">-->
+        <!--domainObjectName="Reply" enableCountByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--enableUpdateByExample="false">-->
         <!--</table>-->
         <!--<table tableName="wc_read"-->
-               <!--domainObjectName="Read" enableCountByExample="false"-->
+        <!--domainObjectName="Read" enableCountByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--enableUpdateByExample="false">-->
+        <!--</table>-->
+        <!--<table tableName="wc_moments"-->
+               <!--domainObjectName="Moments" enableCountByExample="false"-->
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--enableUpdateByExample="false">-->
         <!--</table>-->

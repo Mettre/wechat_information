@@ -25,7 +25,7 @@ public class NewsController {
 
 
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
-    @ApiOperation(value = "添加新增")
+    @ApiOperation(value = "添加新闻")
     public Result<Object> insert(@Valid @RequestBody NewsVM newsVM) {
         newsService.insert(newsVM);
         return new ResultUtil<>().setSuccess();

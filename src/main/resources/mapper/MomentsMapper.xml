@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mettre.wechat_information.mapper.MomentsMapper">
+    <resultMap id="BaseResultMap" type="com.mettre.wechat_information.pojo.Moments">
+        <id column="moments_id" property="momentsId" jdbcType="VARCHAR"/>
+        <result column="moments_title" property="momentsTitle" jdbcType="VARCHAR"/>
+        <result column="publisher_user_id" property="publisherUserId" jdbcType="VARCHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="is_show" property="isShow" jdbcType="TINYINT"/>
+        <result column="moments_image" property="momentsImage" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    moments_id, moments_title, publisher_user_id, creation_time, is_show,
+    moments_image
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from wc_moments
+        where moments_id = #{momentsId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from wc_moments
+    where moments_id = #{momentsId,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insert" parameterType="com.mettre.wechat_information.pojo.Moments">
+    insert into wc_moments (moments_id, moments_title, publisher_user_id, 
+      creation_time, is_show,
+      moments_image)
+    values (#{momentsId,jdbcType=VARCHAR}, #{momentsTitle,jdbcType=VARCHAR}, #{publisherUserId,jdbcType=VARCHAR}, 
+      #{creationTime,jdbcType=TIMESTAMP}, #{isShow,jdbcType=TINYINT},
+      #{momentsImage,jdbcType=VARCHAR})
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.mettre.wechat_information.pojo.Moments">
+        insert into wc_moments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="momentsId != null">
+                moments_id,
+            </if>
+            <if test="momentsTitle != null">
+                moments_title,
+            </if>
+            <if test="publisherUserId != null">
+                publisher_user_id,
+            </if>
+            <if test="creationTime != null">
+                creation_time,
+            </if>
+            <if test="isShow != null">
+                is_show,
+            </if>
+            <if test="momentsImage != null">
+                moments_image,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="momentsId != null">
+                #{momentsId,jdbcType=VARCHAR},
+            </if>
+            <if test="momentsTitle != null">
+                #{momentsTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="publisherUserId != null">
+                #{publisherUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTime != null">
+                #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isShow != null">
+                #{isShow,jdbcType=TINYINT},
+            </if>
+            <if test="momentsImage != null">
+                #{momentsImage,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.mettre.wechat_information.pojo.Moments">
+        update wc_moments
+        <set>
+            <if test="momentsTitle != null">
+                moments_title = #{momentsTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="publisherUserId != null">
+                publisher_user_id = #{publisherUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTime != null">
+                creation_time = #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow,jdbcType=TINYINT},
+            </if>
+            <if test="momentsImage != null">
+                moments_image = #{momentsImage,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where moments_id = #{momentsId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.mettre.wechat_information.pojo.Moments">
+    update wc_moments
+    set moments_title = #{momentsTitle,jdbcType=VARCHAR},
+      publisher_user_id = #{publisherUserId,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      is_show = #{isShow,jdbcType=TINYINT},
+      moments_image = #{momentsImage,jdbcType=VARCHAR},
+    where moments_id = #{momentsId,jdbcType=VARCHAR}
+  </update>
+
+    <!--我发布的朋友圈-->
+    <select id="selectPageVo" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM wc_moments
+        WHERE publisher_user_id = #{publisherUserId,jdbcType=VARCHAR}
+        order by creation_time desc
+    </select>
+</mapper>

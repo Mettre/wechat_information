@@ -13,6 +13,7 @@ public enum ResultEnum {
     NEWSIDNOTEMPTY("E112", "新闻id为空"),
     COMMENTARYDELETING("E113", "该条评论已被删除，无法评论"),
     DYNAMICTYPE("E114", "资讯类型不能为空"),
+    USEREMPTY("E115", "发布失败"),
     PERMISSION_DENIED("E401", "未登录");
 
     private String code;

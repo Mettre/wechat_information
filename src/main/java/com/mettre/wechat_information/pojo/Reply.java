@@ -1,5 +1,6 @@
 package com.mettre.wechat_information.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mettre.wechat_information.enum_.DynamicTypeEnum;
 import com.mettre.wechat_information.utils.RandomUtil;
 import com.mettre.wechat_information.vm.ReplyVM;
@@ -27,6 +28,7 @@ public class Reply {
 
     private Date creationTime;
 
+    @JsonIgnore
     private Boolean isShow;
 
     private DynamicTypeEnum dynamicType;

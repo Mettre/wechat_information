@@ -1,7 +1,6 @@
 package com.mettre.wechat_information.mapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mettre.wechat_information.enum_.DynamicTypeEnum;
 import com.mettre.wechat_information.pojo.Reply;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -29,6 +28,6 @@ public interface ReplyMapper {
 
     List<Reply> selectMomentsPageVo(Page<Reply> page, @Param(value = "dynamicId") String dynamicId);
 
-    List<Reply> selectSecondMoments(@Param(value = "limit") Integer limit, @Param(value = "secondDynamicId") String secondDynamicId);
+    List<Reply> selectSecondMoments(@Param(value = "secondDynamicId") String secondDynamicId);
 
 }
