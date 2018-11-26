@@ -1,5 +1,6 @@
 package com.mettre.wechat_information.dto;
 
+import com.mettre.wechat_information.enum_.GenderEnum;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,7 +14,7 @@ public class UserDto {
 
     private String signature;
 
-    private String gender;
+    private GenderEnum gender;
 
     private String headAvatar;
 
@@ -34,7 +35,7 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(String userId, String userName, String signature, String gender, String headAvatar, String password, String phone, String city, Integer age, String backgroundWall, Date creationTime, Date updateTime) {
+    public UserDto(String userId, String userName, String signature, GenderEnum gender, String headAvatar, String password, String phone, String city, Integer age, String backgroundWall, Date creationTime, Date updateTime) {
         this.userId = userId;
         this.userName = userName;
         this.signature = signature;

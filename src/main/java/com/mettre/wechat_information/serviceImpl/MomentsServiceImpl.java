@@ -66,4 +66,11 @@ public class MomentsServiceImpl implements MomentsService {
         page = page.setRecords(momentsList);
         return page;
     }
+
+    @Override
+    public Page<Moments> circleFriendsPageVo(Page<Moments> page, String userId) {
+        List<Moments> momentsList = (List<Moments>) momentsMapper.circleFriendsPageVo(page, userId);
+        page = page.setRecords(momentsList);
+        return page;
+    }
 }

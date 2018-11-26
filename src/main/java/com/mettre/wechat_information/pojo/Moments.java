@@ -23,6 +23,10 @@ public class Moments {
 
     private String momentsImage;
 
+    private String publisherUserName;
+
+    private String publisherHeadAvatar;
+
     public Moments() {
 
     }

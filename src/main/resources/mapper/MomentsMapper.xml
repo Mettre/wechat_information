@@ -5,6 +5,8 @@
         <id column="moments_id" property="momentsId" jdbcType="VARCHAR"/>
         <result column="moments_title" property="momentsTitle" jdbcType="VARCHAR"/>
         <result column="publisher_user_id" property="publisherUserId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="publisherUserName" jdbcType="VARCHAR"/>
+        <result column="head_avatar" property="publisherHeadAvatar" jdbcType="VARCHAR"/>
         <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
         <result column="is_show" property="isShow" jdbcType="TINYINT"/>
         <result column="moments_image" property="momentsImage" jdbcType="VARCHAR"/>
@@ -12,6 +14,11 @@
 
     <sql id="Base_Column_List">
     moments_id, moments_title, publisher_user_id, creation_time, is_show,
+    moments_image
+  </sql>
+
+    <sql id="Base_Column_List2">
+    moments_id, moments_title, wc_moments.publisher_user_id,wc_user.user_name,wc_user.head_avatar, wc_moments.creation_time, wc_moments.is_show,
     moments_image
   </sql>
 
@@ -118,6 +125,27 @@
         <include refid="Base_Column_List"></include>
         FROM wc_moments
         WHERE publisher_user_id = #{publisherUserId,jdbcType=VARCHAR}
+        order by creation_time desc
+    </select>
+
+
+    <!--我的朋友圈-->
+    <select id="circleFriendsPageVo" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List2"></include>
+        FROM wc_moments
+        left join wc_user
+        on wc_moments.publisher_user_id = wc_user.user_id
+        WHERE publisher_user_id in
+        ( SELECT wc_follow.followed_user
+        FROM wc_follow
+        inner join wc_follow as wc_follow2
+        on wc_follow.user_id = wc_follow2.followed_user
+        and wc_follow.followed_user = wc_follow2.user_id
+        and wc_follow2.status = true
+        where wc_follow.user_id = #{userId,jdbcType=VARCHAR}
+        and wc_follow.status = true)
+        or publisher_user_id = #{userId,jdbcType=VARCHAR}
         order by creation_time desc
     </select>
 </mapper>

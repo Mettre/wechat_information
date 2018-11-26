@@ -23,4 +23,6 @@ public interface MomentsMapper {
     int updateByPrimaryKey(Moments record);
 
     List<Moments> selectPageVo(Page<Moments> page, @Param(value = "publisherUserId") String publisherUserId);
+
+    List<Moments> circleFriendsPageVo(Page<Moments> page, @Param(value = "userId") String userId);
 }

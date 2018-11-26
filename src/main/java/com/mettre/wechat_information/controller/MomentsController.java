@@ -31,7 +31,7 @@ public class MomentsController {
     }
 
     @RequestMapping(value = "/findMomentsList", method = RequestMethod.POST)
-    @ApiOperation(value = "我发布的说说列表")
+    @ApiOperation(value = "我发布的说说")
     public Result<Object> findCategoryList(@Valid @RequestBody PageUtil pageUtil, @RequestParam String publisherUserId) {
 
         Page<Moments> page2 = new Page<>(pageUtil.getPage(), pageUtil.getSize());
@@ -39,5 +39,13 @@ public class MomentsController {
         return new ResultUtil<>().setData(momentsList);
     }
 
+    @RequestMapping(value = "/circleFriendsList", method = RequestMethod.POST)
+    @ApiOperation(value = "我的朋友圈们")
+    public Result<Object> circleFriendsList(@Valid @RequestBody PageUtil pageUtil, @RequestParam String userId) {
+
+        Page<Moments> page2 = new Page<>(pageUtil.getPage(), pageUtil.getSize());
+        Page<Moments> momentsList = momentsService.circleFriendsPageVo(page2, userId);
+        return new ResultUtil<>().setData(momentsList);
+    }
 
 }

@@ -19,4 +19,6 @@ public interface MomentsService {
     int updateByPrimaryKey(Moments record);
 
     Page<Moments> selectPageVo(Page<Moments> page, String publisherUserId);
+
+    Page<Moments> circleFriendsPageVo(Page<Moments> page,String userId);
 }
