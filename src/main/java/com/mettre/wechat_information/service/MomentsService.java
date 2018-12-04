@@ -2,6 +2,7 @@ package com.mettre.wechat_information.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.wechat_information.pojo.Moments;
+import com.mettre.wechat_information.pojo.entity.MomentsParameter;
 import com.mettre.wechat_information.vm.MomentsVM;
 
 public interface MomentsService {
@@ -18,7 +19,7 @@ public interface MomentsService {
 
     int updateByPrimaryKey(Moments record);
 
-    Page<Moments> selectPageVo(Page<Moments> page, String publisherUserId);
+    Page<MomentsParameter> selectPageVo(Page<MomentsParameter> page, String publisherUserId);
 
-    Page<Moments> circleFriendsPageVo(Page<Moments> page,String userId);
+    Page<MomentsParameter> circleFriendsPageVo(Page<MomentsParameter> page, String userId);
 }

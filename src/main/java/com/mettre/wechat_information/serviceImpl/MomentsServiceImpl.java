@@ -8,6 +8,7 @@ import com.mettre.wechat_information.exception.CustomerException;
 import com.mettre.wechat_information.feign.UserClient;
 import com.mettre.wechat_information.mapper.MomentsMapper;
 import com.mettre.wechat_information.pojo.Moments;
+import com.mettre.wechat_information.pojo.entity.MomentsParameter;
 import com.mettre.wechat_information.service.MomentsService;
 import com.mettre.wechat_information.vm.MomentsVM;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,15 +62,15 @@ public class MomentsServiceImpl implements MomentsService {
     }
 
     @Override
-    public Page<Moments> selectPageVo(Page<Moments> page, String publisherUserId) {
-        List<Moments> momentsList = (List<Moments>) momentsMapper.selectPageVo(page, publisherUserId);
+    public Page<MomentsParameter> selectPageVo(Page<MomentsParameter> page, String publisherUserId) {
+        List<MomentsParameter> momentsList = (List<MomentsParameter>) momentsMapper.selectPageVo(page, publisherUserId);
         page = page.setRecords(momentsList);
         return page;
     }
 
     @Override
-    public Page<Moments> circleFriendsPageVo(Page<Moments> page, String userId) {
-        List<Moments> momentsList = (List<Moments>) momentsMapper.circleFriendsPageVo(page, userId);
+    public Page<MomentsParameter> circleFriendsPageVo(Page<MomentsParameter> page, String userId) {
+        List<MomentsParameter> momentsList = (List<MomentsParameter>) momentsMapper.circleFriendsPageVo(page, userId);
         page = page.setRecords(momentsList);
         return page;
     }
