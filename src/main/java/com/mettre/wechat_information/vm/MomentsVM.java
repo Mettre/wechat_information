@@ -1,5 +1,6 @@
 package com.mettre.wechat_information.vm;
 
+import com.mettre.wechat_information.enum_.MomentsTypeEnum;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -13,5 +14,7 @@ public class MomentsVM {
     private String publisherUserId;
 
     private String momentsImage;
+
+    private MomentsTypeEnum momentsType;
 
 }

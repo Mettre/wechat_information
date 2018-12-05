@@ -1,6 +1,7 @@
 package com.mettre.wechat_information.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mettre.wechat_information.enum_.MomentsTypeEnum;
 import com.mettre.wechat_information.utils.RandomUtil;
 import com.mettre.wechat_information.vm.MomentsVM;
 import lombok.Data;
@@ -27,6 +28,8 @@ public class Moments {
 
     private String publisherHeadAvatar;
 
+    private MomentsTypeEnum momentsType;
+
     public Moments() {
 
     }
@@ -38,5 +41,6 @@ public class Moments {
         this.creationTime = new Date();
         this.isShow = true;
         this.momentsImage = momentsVM.getMomentsImage();
+        this.momentsType = momentsVM.getMomentsType();
     }
 }

@@ -5,6 +5,7 @@ import com.mettre.wechat_information.base.Result;
 import com.mettre.wechat_information.base.ResultUtil;
 import com.mettre.wechat_information.pojo.entity.MomentsParameter;
 import com.mettre.wechat_information.service.MomentsService;
+import com.mettre.wechat_information.vm.MomentsListVM;
 import com.mettre.wechat_information.vm.MomentsVM;
 import com.mettre.wechat_information.vm.PageUtil;
 import io.swagger.annotations.Api;
@@ -41,10 +42,10 @@ public class MomentsController {
 
     @RequestMapping(value = "/circleFriendsList", method = RequestMethod.POST)
     @ApiOperation(value = "我的朋友圈们")
-    public Result<Object> circleFriendsList(@Valid @RequestBody PageUtil pageUtil, @RequestParam String userId) {
+    public Result<Object> circleFriendsList(@Valid @RequestBody MomentsListVM pageUtil) {
 
-        Page<MomentsParameter> page2 = new Page<>(pageUtil.getPage(), pageUtil.getSize());
-        Page<MomentsParameter> momentsList = momentsService.circleFriendsPageVo(page2, userId);
+        Page<MomentsParameter> page = new Page<>(pageUtil.getPage(), pageUtil.getSize());
+        Page<MomentsParameter> momentsList = momentsService.circleFriendsPageVo(page, pageUtil.getUserId());
         return new ResultUtil<>().setData(momentsList);
     }
 

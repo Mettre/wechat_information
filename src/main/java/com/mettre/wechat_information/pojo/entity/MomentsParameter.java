@@ -1,5 +1,8 @@
 package com.mettre.wechat_information.pojo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mettre.wechat_information.enum_.MomentsTypeEnum;
+import com.mettre.wechat_information.pojo.entity.inside.UserBean;
 import lombok.Data;
 
 import java.util.Date;
@@ -17,13 +20,11 @@ public class MomentsParameter {
 
     private UserBean userBean;
 
-    @Data
-    public static class UserBean{
+    private MomentsTypeEnum momentsType;
 
-        private String publisherUserName;
+    @JsonIgnore
+    private Boolean isShow;
 
-        private String publisherHeadAvatar;
 
-        private String publisherUserId;
-    }
+
 }
