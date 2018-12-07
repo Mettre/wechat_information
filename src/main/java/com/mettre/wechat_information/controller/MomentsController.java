@@ -7,7 +7,7 @@ import com.mettre.wechat_information.pojo.entity.MomentsParameter;
 import com.mettre.wechat_information.service.MomentsService;
 import com.mettre.wechat_information.vm.MomentsListVM;
 import com.mettre.wechat_information.vm.MomentsVM;
-import com.mettre.wechat_information.vm.PageUtil;
+import com.mettre.wechat_information.vm.PersonalMomentsListVM;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -31,12 +31,12 @@ public class MomentsController {
         return new ResultUtil<>().setSuccess();
     }
 
-    @RequestMapping(value = "/findMomentsList", method = RequestMethod.POST)
-    @ApiOperation(value = "我发布的说说")
-    public Result<Object> findCategoryList(@Valid @RequestBody PageUtil pageUtil, @RequestParam String publisherUserId) {
+    @RequestMapping(value = "/findMomentsListWithPublisherUserId", method = RequestMethod.POST)
+    @ApiOperation(value = "查询个人发布的说说")
+    public Result<Object> findCategoryList(@Valid @RequestBody PersonalMomentsListVM pageUtil) {
 
         Page<MomentsParameter> page2 = new Page<>(pageUtil.getPage(), pageUtil.getSize());
-        Page<MomentsParameter> momentsList = momentsService.selectPageVo(page2, publisherUserId);
+        Page<MomentsParameter> momentsList = momentsService.selectPageVo(page2, pageUtil.getPublisherUserId());
         return new ResultUtil<>().setData(momentsList);
     }
 

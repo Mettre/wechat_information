@@ -1,10 +1,13 @@
 package com.mettre.wechat_information.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 public class DateUtil {
     public DateUtil() {
@@ -43,5 +46,29 @@ public class DateUtil {
 
     public static LocalDate calculateEndDate(LocalDate startDate, int cycle) {
         return startDate.plus((long)cycle, ChronoUnit.MONTHS);
+    }
+
+    /*
+     * 将时间戳转换为时间
+     */
+    public static String stampToDate(Long s){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long lt = new Long(s);
+        Date date = new Date(lt);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
+
+    /*
+     * 将时间转换为时间戳
+     */
+    public static String dateToStamp(String s) throws ParseException {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = simpleDateFormat.parse(s);
+        long ts = date.getTime();
+        res = String.valueOf(ts);
+        return res;
     }
 }
