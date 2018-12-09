@@ -3,11 +3,9 @@ package com.mettre.wechat_information.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.wechat_information.base.Result;
 import com.mettre.wechat_information.base.ResultUtil;
-import com.mettre.wechat_information.enum_.DynamicTypeEnum;
-import com.mettre.wechat_information.pojo.News;
+import com.mettre.wechat_information.pojo.MomentsDetails;
 import com.mettre.wechat_information.pojo.Reply;
 import com.mettre.wechat_information.service.ReplyService;
-import com.mettre.wechat_information.vm.NewsVM;
 import com.mettre.wechat_information.vm.ReplyVM;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,13 +44,9 @@ public class ReplyController {
 
     @RequestMapping(value = "/findMomentsReplyList", method = RequestMethod.POST)
     @ApiOperation(value = "微信评论列表")
-    public Result<Object> findMomentsCategoryList(@RequestBody HashMap<String, Object> map) {
-        Integer page = Integer.parseInt(map.get("page").toString());
-        Integer size = Integer.parseInt(map.get("size").toString());
-        String dynamicId = map.get("dynamicId").toString();
-        Page<Reply> page2 = new Page<>(page, size);
-        Page<Reply> addressList = replyService.selectMomentsPageVo(page2, dynamicId);
-        return new ResultUtil<>().setData(addressList);
+    public Result<Object> findMomentsCategoryList(@RequestBody String dynamicId) {
+        MomentsDetails momentsDetails = replyService.selectMomentsReply(dynamicId);
+        return new ResultUtil<>().setData(momentsDetails);
     }
 
 }

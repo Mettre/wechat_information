@@ -26,7 +26,7 @@ public interface ReplyMapper {
 
     List<Reply> selectPageVo(Page<Reply> page, @Param(value = "dynamicId") String dynamicId);
 
-    List<Reply> selectMomentsPageVo(Page<Reply> page, @Param(value = "dynamicId") String dynamicId);
+    List<Reply> selectMomentsReply(@Param(value = "dynamicId") String dynamicId);
 
     List<Reply> selectSecondMoments(@Param(value = "secondDynamicId") String secondDynamicId);
 

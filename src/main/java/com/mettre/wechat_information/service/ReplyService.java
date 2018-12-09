@@ -2,6 +2,7 @@ package com.mettre.wechat_information.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.wechat_information.enum_.DynamicTypeEnum;
+import com.mettre.wechat_information.pojo.MomentsDetails;
 import com.mettre.wechat_information.pojo.Reply;
 import com.mettre.wechat_information.vm.ReplyVM;
 import org.apache.ibatis.annotations.Param;
@@ -24,5 +25,5 @@ public interface ReplyService {
 
     Page<Reply> selectPageVo(Page<Reply> page, String dynamicId);
 
-    Page<Reply> selectMomentsPageVo(Page<Reply> page, String dynamicId);
+    MomentsDetails selectMomentsReply(String dynamicId);
 }

@@ -20,6 +20,8 @@ public class MomentsParameter {
 
     private UserBean userBean;
 
+    private Date date;//日期  2019-12-12
+
     private MomentsTypeEnum momentsType;
 
     @JsonIgnore

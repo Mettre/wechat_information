@@ -36,6 +36,33 @@
     </resultMap>
 
 
+    <!--说说内容+评论列表-->
+    <resultMap id="BaseDetailsResultMap" type="com.mettre.wechat_information.pojo.MomentsDetails">
+        <id column="reply_id" property="replyId" jdbcType="VARCHAR"/>
+        <result column="dynamic_id" property="dynamicId" jdbcType="VARCHAR"/>
+        <result column="reply_parent_user_id" property="replyParentUserId" jdbcType="VARCHAR"/>
+        <result column="dynamic_user_id" property="dynamicUserId" jdbcType="VARCHAR"/>
+        <result column="reply_content" property="replyContent" jdbcType="VARCHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="reply_parent_id" property="replyParentId" jdbcType="VARCHAR"/>
+        <result column="is_show" property="isShow" jdbcType="TINYINT"/>
+        <result column="second_dynamic_id" property="secondDynamicId" jdbcType="VARCHAR"/>
+        <result column="user_name2" property="replyParentUserName" jdbcType="VARCHAR"/>
+        <result column="user_name1" property="userName" jdbcType="VARCHAR"/>
+        <result column="head_avatar" property="headAvatar" jdbcType="VARCHAR"/>
+        <collection property="replyList" column="secondDynamicId = second_dynamic_id"
+                    javaType="ArrayList"
+                    select="com.mettre.wechat_information.mapper.ReplyMapper.selectMomentsReply">
+        </collection>
+    </resultMap>
+
+    <!--朋友圈详情-->
+    <sql id="Base_moments_details">
+    moments_id, moments_title, publisher_user_id, creation_time, is_show,moments_type
+    ,moments_image,DATE_FORMAT(creation_time,'%Y-%m-%d') as date2
+  </sql>
+
+
     <sql id="Base_Column">
     reply_id, dynamic_id, reply_parent_user_id, dynamic_user_id, reply_content,reply_parent_id,
     wc_reply.creation_time, wc_reply.is_show,second_dynamic_id
@@ -227,6 +254,14 @@
         </if>
         and wc_reply.reply_parent_id is null
         order by wc_reply.creation_time asc
+    </select>
+
+    <!--朋友圈详情-->
+    <select id="selectMomentsDetailsByPrimaryKey" resultMap="BaseDetailsResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_moments_details"/>
+        from wc_moments
+        where moments_id = #{dynamicId,jdbcType=VARCHAR}
     </select>
 
 </mapper>

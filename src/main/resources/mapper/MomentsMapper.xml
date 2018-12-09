@@ -8,6 +8,7 @@
         <result column="is_show" property="isShow" jdbcType="TINYINT"/>
         <result column="moments_image" property="momentsImage" jdbcType="VARCHAR"/>
         <result column="moments_type" property="momentsType" jdbcType="VARCHAR"/>
+        <result column="date2" property="date" jdbcType="TIMESTAMP"/>
         <association property="userBean" javaType="com.mettre.wechat_information.pojo.entity.inside.UserBean">
             <result column="publisher_user_id" property="publisherUserId" jdbcType="VARCHAR"/>
             <result column="user_name" property="publisherUserName" jdbcType="VARCHAR"/>

@@ -6,6 +6,7 @@ import com.mettre.wechat_information.enum_.DynamicTypeEnum;
 import com.mettre.wechat_information.enum_.ResultEnum;
 import com.mettre.wechat_information.exception.CustomerException;
 import com.mettre.wechat_information.mapper.ReplyMapper;
+import com.mettre.wechat_information.pojo.MomentsDetails;
 import com.mettre.wechat_information.pojo.Reply;
 import com.mettre.wechat_information.service.NewsService;
 import com.mettre.wechat_information.service.ReplyService;
@@ -101,9 +102,8 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public Page<Reply> selectMomentsPageVo(Page<Reply> page, String dynamicId) {
-        List<Reply> addressList = (List<Reply>) replyMapper.selectMomentsPageVo(page, dynamicId);
-        page = page.setRecords(addressList);
-        return page;
+    public MomentsDetails selectMomentsReply(String dynamicId) {
+        MomentsDetails momentsDetails = (MomentsDetails) replyMapper.selectMomentsReply(dynamicId);
+        return momentsDetails;
     }
 }
