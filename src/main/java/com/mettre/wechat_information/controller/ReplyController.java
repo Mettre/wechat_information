@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -42,11 +43,11 @@ public class ReplyController {
         return new ResultUtil<>().setData(addressList);
     }
 
-    @RequestMapping(value = "/findMomentsReplyList", method = RequestMethod.POST)
+    @RequestMapping(value = "/findMomentsReplyList", method = RequestMethod.GET)
     @ApiOperation(value = "微信评论列表")
-    public Result<Object> findMomentsCategoryList(@RequestBody String dynamicId) {
-        MomentsDetails momentsDetails = replyService.selectMomentsReply(dynamicId);
-        return new ResultUtil<>().setData(momentsDetails);
+    public Result<Object> findMomentsCategoryList(@RequestParam String dynamicId) {
+        List<Reply> replyList = replyService.selectMomentsReply(dynamicId);
+        return new ResultUtil<>().setData(replyList);
     }
 
 }

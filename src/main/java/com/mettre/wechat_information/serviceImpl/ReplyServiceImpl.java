@@ -102,8 +102,8 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public MomentsDetails selectMomentsReply(String dynamicId) {
-        MomentsDetails momentsDetails = (MomentsDetails) replyMapper.selectMomentsReply(dynamicId);
-        return momentsDetails;
+    public List<Reply> selectMomentsReply(String dynamicId) {
+        List<Reply> replyList = (List<Reply>) replyMapper.selectMomentsReply(dynamicId);
+        return replyList;
     }
 }

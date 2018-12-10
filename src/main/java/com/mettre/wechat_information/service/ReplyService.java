@@ -25,5 +25,5 @@ public interface ReplyService {
 
     Page<Reply> selectPageVo(Page<Reply> page, String dynamicId);
 
-    MomentsDetails selectMomentsReply(String dynamicId);
+    List<Reply> selectMomentsReply(String dynamicId);
 }

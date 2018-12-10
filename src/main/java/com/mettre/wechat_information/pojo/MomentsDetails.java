@@ -14,5 +14,5 @@ public class MomentsDetails {
 
     private Moments moments;
 
-    private List<Reply> reply;
+    private List<Reply> replyList;
 }
