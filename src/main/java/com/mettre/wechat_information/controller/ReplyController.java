@@ -3,7 +3,6 @@ package com.mettre.wechat_information.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.wechat_information.base.Result;
 import com.mettre.wechat_information.base.ResultUtil;
-import com.mettre.wechat_information.pojo.MomentsDetails;
 import com.mettre.wechat_information.pojo.Reply;
 import com.mettre.wechat_information.service.ReplyService;
 import com.mettre.wechat_information.vm.ReplyVM;

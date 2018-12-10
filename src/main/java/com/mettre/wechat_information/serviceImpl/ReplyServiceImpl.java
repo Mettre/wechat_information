@@ -6,7 +6,6 @@ import com.mettre.wechat_information.enum_.DynamicTypeEnum;
 import com.mettre.wechat_information.enum_.ResultEnum;
 import com.mettre.wechat_information.exception.CustomerException;
 import com.mettre.wechat_information.mapper.ReplyMapper;
-import com.mettre.wechat_information.pojo.MomentsDetails;
 import com.mettre.wechat_information.pojo.Reply;
 import com.mettre.wechat_information.service.NewsService;
 import com.mettre.wechat_information.service.ReplyService;

@@ -2,6 +2,7 @@ package com.mettre.wechat_information.mapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.wechat_information.pojo.Moments;
+import com.mettre.wechat_information.pojo.MomentsDetails;
 import com.mettre.wechat_information.pojo.entity.MomentsParameter;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,8 @@ public interface MomentsMapper {
     int updateByPrimaryKeySelective(Moments record);
 
     int updateByPrimaryKey(Moments record);
+
+    MomentsDetails selectMomentsDetails(String momentsId);
 
     List<MomentsParameter> selectPageVo(Page<MomentsParameter> page, @Param(value = "publisherUserId") String publisherUserId);
 

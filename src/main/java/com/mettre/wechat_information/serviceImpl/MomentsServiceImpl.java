@@ -8,6 +8,7 @@ import com.mettre.wechat_information.exception.CustomerException;
 import com.mettre.wechat_information.feign.UserClient;
 import com.mettre.wechat_information.mapper.MomentsMapper;
 import com.mettre.wechat_information.pojo.Moments;
+import com.mettre.wechat_information.pojo.MomentsDetails;
 import com.mettre.wechat_information.pojo.entity.MomentsParameter;
 import com.mettre.wechat_information.service.MomentsService;
 import com.mettre.wechat_information.vm.MomentsVM;
@@ -73,5 +74,10 @@ public class MomentsServiceImpl implements MomentsService {
         List<MomentsParameter> momentsList = (List<MomentsParameter>) momentsMapper.circleFriendsPageVo(page, userId);
         page = page.setRecords(momentsList);
         return page;
+    }
+
+    @Override
+    public MomentsDetails selectMomentsDetails(String momentsId) {
+        return momentsMapper.selectMomentsDetails(momentsId);
     }
 }

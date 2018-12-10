@@ -1,5 +1,6 @@
 package com.mettre.wechat_information.pojo;
 
+import com.mettre.wechat_information.pojo.entity.MomentsParameter;
 import lombok.Data;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class MomentsDetails {
 
     private String momentsId;
 
-    private Moments moments;
+    private MomentsParameter moments;
 
     private List<Reply> replyList;
 }

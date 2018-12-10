@@ -3,6 +3,7 @@ package com.mettre.wechat_information.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.wechat_information.base.Result;
 import com.mettre.wechat_information.base.ResultUtil;
+import com.mettre.wechat_information.pojo.MomentsDetails;
 import com.mettre.wechat_information.pojo.entity.MomentsParameter;
 import com.mettre.wechat_information.service.MomentsService;
 import com.mettre.wechat_information.vm.MomentsListVM;
@@ -47,6 +48,14 @@ public class MomentsController {
         Page<MomentsParameter> page = new Page<>(pageUtil.getPage(), pageUtil.getSize());
         Page<MomentsParameter> momentsList = momentsService.circleFriendsPageVo(page, pageUtil.getUserId());
         return new ResultUtil<>().setData(momentsList);
+    }
+
+
+    @RequestMapping(value = "/selectMomentsDetails", method = RequestMethod.POST)
+    @ApiOperation(value = "说说详情+评论")
+    public Result<Object> selectMomentsDetails(@RequestParam String momentsId) {
+        MomentsDetails momentsDetails = momentsService.selectMomentsDetails(momentsId);
+        return new ResultUtil<>().setData(momentsDetails);
     }
 
 }
