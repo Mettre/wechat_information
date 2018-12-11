@@ -39,14 +39,9 @@
         </collection>
     </resultMap>
 
-    <sql id="Base_Column_List">
-    moments_id, moments_title, publisher_user_id, creation_time, is_show,moments_type
-    ,moments_image,DATE_FORMAT(creation_time,'%Y-%m-%d') as date2
-  </sql>
-
     <sql id="Base_Column_List2">
     moments_id, moments_title, wc_moments.publisher_user_id,wc_user.user_name,wc_user.head_avatar, wc_moments.creation_time, wc_moments.is_show,
-    moments_image,moments_type
+    moments_image,moments_type,DATE_FORMAT(wc_moments.creation_time,'%Y-%m-%d') as date2
   </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -158,11 +153,13 @@
     where moments_id = #{momentsId,jdbcType=VARCHAR}
   </update>
 
-    <!--我发布的朋友圈-->
+    <!--查询某个人发布的朋友圈-->
     <select id="selectPageVo" resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"></include>
+        <include refid="Base_Column_List2"></include>
         FROM wc_moments
+        left join wc_user
+        on wc_moments.publisher_user_id = wc_user.user_id
         WHERE publisher_user_id = #{publisherUserId,jdbcType=VARCHAR}
         order by creation_time desc
     </select>

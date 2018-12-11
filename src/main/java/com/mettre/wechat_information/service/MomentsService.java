@@ -14,7 +14,7 @@ public interface MomentsService {
 
     int insertSelective(Moments record);
 
-    Moments selectByPrimaryKey(String momentsId);
+    MomentsParameter selectByPrimaryKey(String momentsId);
 
     int updateByPrimaryKeySelective(Moments record);
 

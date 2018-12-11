@@ -48,8 +48,12 @@ public class MomentsServiceImpl implements MomentsService {
     }
 
     @Override
-    public Moments selectByPrimaryKey(String momentsId) {
-        return null;
+    public MomentsParameter selectByPrimaryKey(String momentsId) {
+        MomentsParameter momentsParameter = momentsMapper.selectByPrimaryKey(momentsId);
+        if (momentsParameter == null) {
+            throw new CustomerException("该条动态不存在");
+        }
+        return momentsParameter;
     }
 
     @Override

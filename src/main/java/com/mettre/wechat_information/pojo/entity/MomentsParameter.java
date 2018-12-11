@@ -7,6 +7,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 朋友圈列表
+ */
 @Data
 public class MomentsParameter {
 

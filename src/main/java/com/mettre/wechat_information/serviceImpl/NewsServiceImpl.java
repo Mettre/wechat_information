@@ -52,7 +52,11 @@ public class NewsServiceImpl implements NewsService {
         if (news == null) {
             throw new CustomerException(ResultEnum.NEWSNULL);
         }
-        addReadNum(newsId, readerId, readerEquipment);
+        if (StrUtil.isBlank(readerId) && StrUtil.isBlank(readerEquipment)) {
+
+        } else {
+            addReadNum(newsId, readerId, readerEquipment);
+        }
         return news;
     }
 
@@ -63,7 +67,7 @@ public class NewsServiceImpl implements NewsService {
             return;
         } else if (StrUtil.isNotBlank(readerId) && StrUtil.isNotBlank(readerEquipment)) {
             read = readMapper.selectByReaderIdOrEquipment(dynamicId, readerId, null);
-        }else {
+        } else {
             read = readMapper.selectByReaderIdOrEquipment(dynamicId, readerId, readerEquipment);
         }
         if (read == null) {

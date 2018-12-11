@@ -51,9 +51,9 @@ public class MomentsController {
     }
 
 
-    @RequestMapping(value = "/selectMomentsDetails", method = RequestMethod.POST)
+    @RequestMapping(value = "/selectMomentsDetails/{momentsId}", method = RequestMethod.GET)
     @ApiOperation(value = "说说详情+评论")
-    public Result<Object> selectMomentsDetails(@RequestParam String momentsId) {
+    public Result<Object> selectMomentsDetails(@PathVariable String momentsId) {
         MomentsDetails momentsDetails = momentsService.selectMomentsDetails(momentsId);
         return new ResultUtil<>().setData(momentsDetails);
     }

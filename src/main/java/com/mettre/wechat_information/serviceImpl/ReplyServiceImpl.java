@@ -6,7 +6,10 @@ import com.mettre.wechat_information.enum_.DynamicTypeEnum;
 import com.mettre.wechat_information.enum_.ResultEnum;
 import com.mettre.wechat_information.exception.CustomerException;
 import com.mettre.wechat_information.mapper.ReplyMapper;
+import com.mettre.wechat_information.pojo.News;
 import com.mettre.wechat_information.pojo.Reply;
+import com.mettre.wechat_information.pojo.entity.MomentsParameter;
+import com.mettre.wechat_information.service.MomentsService;
 import com.mettre.wechat_information.service.NewsService;
 import com.mettre.wechat_information.service.ReplyService;
 import com.mettre.wechat_information.vm.ReplyVM;
@@ -17,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.mettre.wechat_information.enum_.DynamicTypeEnum.NEWS;
 
 @Service
 @Transactional
@@ -31,6 +36,9 @@ public class ReplyServiceImpl implements ReplyService {
     @Autowired
     public NewsService newsService;
 
+    @Autowired
+    public MomentsService momentsService;
+
     @Override
     public int deleteByPrimaryKey(String replyId) {
         return 0;
@@ -44,25 +52,23 @@ public class ReplyServiceImpl implements ReplyService {
         }
         switch (replyVM.getDynamicType()) {
             case NEWS:
-                newsService.selectByPrimaryKey(replyVM.getDynamicId(), null, null);
+            case MOMENTS:
+                if (replyVM.getDynamicType() == NEWS) {
+                    newsService.selectByPrimaryKey(replyVM.getDynamicId(), null, null);
+                } else {
+                    momentsService.selectByPrimaryKey(replyVM.getDynamicId());
+                }
                 if (StrUtil.isNotBlank(replyVM.getReplyParentId())) {
                     Reply reply = replyMapper.selectByPrimaryKey(replyVM.getReplyParentId());
-                    if (reply == null) {
-                        throw new CustomerException(ResultEnum.COMMENTARYDELETING);
+                    if (StrUtil.isNotBlank(reply.getSecondDynamicId())) {
+                        return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getSecondDynamicId()));
                     } else {
-                        if (StrUtil.isNotBlank(reply.getSecondDynamicId())) {
-                            return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getSecondDynamicId()));
-                        } else {
-                            return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getReplyId()));
-                        }
+                        return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getReplyId()));
                     }
+
                 } else {
                     return replyMapper.insert(new Reply(replyVM));
                 }
-
-            case MOMENTS:
-                return replyMapper.insert(new Reply(replyVM));
-
             case FORUM:
                 return replyMapper.insert(new Reply(replyVM));
 
@@ -80,7 +86,11 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public Reply selectByPrimaryKey(String replyId) {
-        return null;
+        Reply reply = replyMapper.selectByPrimaryKey(replyId);
+        if (reply == null) {
+            throw new CustomerException("该条评论不存在");
+        }
+        return reply;
     }
 
     @Override

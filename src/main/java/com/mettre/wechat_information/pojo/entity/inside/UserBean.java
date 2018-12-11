@@ -11,4 +11,6 @@ public class UserBean {
 
     private String publisherUserId;
 
+    private String publisherBackgroundWall;
+
 }
