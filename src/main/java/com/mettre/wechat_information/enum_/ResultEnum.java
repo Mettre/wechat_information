@@ -11,9 +11,11 @@ public enum ResultEnum {
     NEWSNULL("E111", "新闻不存在"),
     NEWSIDNOTEMPTY("E112", "新闻id为空"),
     COMMENTARYDELETING("E113", "该条评论已被删除，无法评论"),
+    DELETE_ERROR("E114", "删除失败"),
     DYNAMICTYPE("E114", "资讯类型不能为空"),
     USEREMPTY("E115", "未查到用户"),
     PERMISSION_DENIED("E401", "未登录");
+
 
     private String code;
     private String msg;

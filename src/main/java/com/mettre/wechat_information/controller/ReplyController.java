@@ -5,6 +5,7 @@ import com.mettre.wechat_information.base.Result;
 import com.mettre.wechat_information.base.ResultUtil;
 import com.mettre.wechat_information.pojo.Reply;
 import com.mettre.wechat_information.service.ReplyService;
+import com.mettre.wechat_information.vm.DeleteReplyMomentsVM;
 import com.mettre.wechat_information.vm.ReplyVM;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,6 +48,20 @@ public class ReplyController {
     public Result<Object> findMomentsCategoryList(@RequestParam String dynamicId) {
         List<Reply> replyList = replyService.selectMomentsReply(dynamicId);
         return new ResultUtil<>().setData(replyList);
+    }
+
+    @RequestMapping(value = "/deleteReplyFromUser", method = RequestMethod.POST)
+    @ApiOperation(value = "用户删除评论")
+    public Result<Object> deleteReplyFromUser(@RequestBody DeleteReplyMomentsVM deleteReplyMomentsVM) {
+        replyService.deleteByReplyIdAndDynamicUserId(deleteReplyMomentsVM.getReplyId(), deleteReplyMomentsVM.getDynamicUserId());
+        return new ResultUtil<>().setSuccess();
+    }
+
+    @RequestMapping(value = "/deleteReply{replyId}", method = RequestMethod.GET)
+    @ApiOperation(value = "删除评论")
+    public Result<Object> deleteReply(@PathVariable String replyId) {
+        replyService.deleteByPrimaryKey(replyId);
+        return new ResultUtil<>().setSuccess();
     }
 
 }

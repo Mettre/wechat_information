@@ -2,13 +2,12 @@ package com.mettre.wechat_information.serviceImpl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mettre.wechat_information.base.ReturnType;
 import com.mettre.wechat_information.enum_.DynamicTypeEnum;
 import com.mettre.wechat_information.enum_.ResultEnum;
 import com.mettre.wechat_information.exception.CustomerException;
 import com.mettre.wechat_information.mapper.ReplyMapper;
-import com.mettre.wechat_information.pojo.News;
 import com.mettre.wechat_information.pojo.Reply;
-import com.mettre.wechat_information.pojo.entity.MomentsParameter;
 import com.mettre.wechat_information.service.MomentsService;
 import com.mettre.wechat_information.service.NewsService;
 import com.mettre.wechat_information.service.ReplyService;
@@ -41,7 +40,19 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public int deleteByPrimaryKey(String replyId) {
-        return 0;
+        int type = replyMapper.deleteByPrimaryKey(replyId);
+        return ReturnType.ReturnType(type, ResultEnum.DELETE_ERROR);
+    }
+
+    @Override
+    public int deleteByReplyIdAndDynamicUserId(String replyId, String dynamicUserId) {
+        Reply reply = replyMapper.selectByPrimaryKey(replyId);
+        if (!dynamicUserId.equals(reply.getDynamicUserId())) {
+            throw new CustomerException("暂无权限");
+        }
+        int type = replyMapper.deleteByPrimaryKey(replyId);
+        return ReturnType.ReturnType(type, ResultEnum.DELETE_ERROR);
+
     }
 
     @Override
@@ -59,7 +70,8 @@ public class ReplyServiceImpl implements ReplyService {
                     momentsService.selectByPrimaryKey(replyVM.getDynamicId());
                 }
                 if (StrUtil.isNotBlank(replyVM.getReplyParentId())) {
-                    Reply reply = replyMapper.selectByPrimaryKey(replyVM.getReplyParentId());
+                    Reply reply = selectByPrimaryKey(replyVM.getReplyParentId());
+
                     if (StrUtil.isNotBlank(reply.getSecondDynamicId())) {
                         return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getSecondDynamicId()));
                     } else {
