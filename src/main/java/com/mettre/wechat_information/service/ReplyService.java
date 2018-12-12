@@ -22,7 +22,7 @@ public interface ReplyService {
 
     int updateByPrimaryKey(Reply record);
 
-    Page<Reply> selectPageVo(Page<Reply> page, String dynamicId);
+    Page<Reply> selectPageVo(Page<Reply> page, String dynamicId,String userId);
 
-    List<Reply> selectMomentsReply(String dynamicId);
+    List<Reply> selectMomentsReply(String dynamicId,String userId);
 }

@@ -24,10 +24,10 @@ public interface ReplyMapper {
 
     int updateByPrimaryKey(Reply record);
 
-    List<Reply> selectPageVo(Page<Reply> page, @Param(value = "dynamicId") String dynamicId);
+    List<Reply> selectPageVo(Page<Reply> page, @Param(value = "dynamicId") String dynamicId,@Param(value = "userId") String userId);
 
-    List<Reply> selectMomentsReply(@Param(value = "dynamicId") String dynamicId);
+    List<Reply> selectMomentsReply(@Param(value = "dynamicId") String dynamicId, @Param(value = "userId") String userId);
 
-    List<Reply> selectSecondMoments(@Param(value = "secondDynamicId") String secondDynamicId);
+    List<Reply> selectSecondMoments(@Param(value = "secondDynamicId") String secondDynamicId,@Param(value = "userId") String userId);
 
 }

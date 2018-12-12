@@ -39,6 +39,8 @@ public class Reply {
 
     private String headAvatar;//头像
 
+    private Boolean own;
+
     public List<Reply> replyList;
 
 

@@ -116,15 +116,15 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public Page<Reply> selectPageVo(Page<Reply> page, String dynamicId) {
-        List<Reply> addressList = (List<Reply>) replyMapper.selectPageVo(page, dynamicId);
+    public Page<Reply> selectPageVo(Page<Reply> page, String dynamicId,String userId) {
+        List<Reply> addressList = (List<Reply>) replyMapper.selectPageVo(page, dynamicId,userId);
         page = page.setRecords(addressList);
         return page;
     }
 
     @Override
-    public List<Reply> selectMomentsReply(String dynamicId) {
-        List<Reply> replyList = (List<Reply>) replyMapper.selectMomentsReply(dynamicId);
+    public List<Reply> selectMomentsReply(String dynamicId,String userId) {
+        List<Reply> replyList = (List<Reply>) replyMapper.selectMomentsReply(dynamicId,userId);
         return replyList;
     }
 }

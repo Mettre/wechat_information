@@ -14,6 +14,7 @@
         <result column="user_name2" property="replyParentUserName" jdbcType="VARCHAR"/>
         <result column="user_name1" property="userName" jdbcType="VARCHAR"/>
         <result column="head_avatar" property="headAvatar" jdbcType="VARCHAR"/>
+        <result column="own" property="own" jdbcType="TINYINT"/>
     </resultMap>
 
     <resultMap id="BaseListResultMap" type="com.mettre.wechat_information.pojo.Reply">
@@ -29,7 +30,8 @@
         <result column="user_name2" property="replyParentUserName" jdbcType="VARCHAR"/>
         <result column="user_name1" property="userName" jdbcType="VARCHAR"/>
         <result column="head_avatar" property="headAvatar" jdbcType="VARCHAR"/>
-        <collection property="replyList" column="secondDynamicId = second_dynamic_id"
+        <result column="own" property="own" jdbcType="TINYINT"/>
+        <collection property="replyList" column="{secondDynamicId = second_dynamic_id,userId = dynamic_user_id}"
                     javaType="ArrayList"
                     select="com.mettre.wechat_information.mapper.ReplyMapper.selectSecondMoments">
         </collection>
@@ -44,6 +46,7 @@
     <sql id="Base_Column_List2">
     reply_id, reply_parent_user_id, dynamic_user_id, reply_content,reply_parent_id,
     wc_reply.creation_time, wc_reply.is_show,wc_user1.user_name user_name1,wc_user1.head_avatar,wc_user2.user_name user_name2,second_dynamic_id
+    ,if(dynamic_user_id=#{userId,jdbcType=VARCHAR},true ,false ) as own
   </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">

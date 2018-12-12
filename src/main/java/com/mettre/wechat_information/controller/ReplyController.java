@@ -38,15 +38,16 @@ public class ReplyController {
         Integer page = Integer.parseInt(map.get("page").toString());
         Integer size = Integer.parseInt(map.get("size").toString());
         String dynamicId = map.get("dynamicId").toString();
+        String userId = map.get("userId").toString();
         Page<Reply> page2 = new Page<>(page, size);
-        Page<Reply> addressList = replyService.selectPageVo(page2, dynamicId);
+        Page<Reply> addressList = replyService.selectPageVo(page2, dynamicId,userId);
         return new ResultUtil<>().setData(addressList);
     }
 
     @RequestMapping(value = "/findMomentsReplyList", method = RequestMethod.GET)
     @ApiOperation(value = "微信评论列表")
-    public Result<Object> findMomentsCategoryList(@RequestParam String dynamicId) {
-        List<Reply> replyList = replyService.selectMomentsReply(dynamicId);
+    public Result<Object> findMomentsCategoryList(@RequestParam String dynamicId,String userId) {
+        List<Reply> replyList = replyService.selectMomentsReply(dynamicId,userId);
         return new ResultUtil<>().setData(replyList);
     }
 
