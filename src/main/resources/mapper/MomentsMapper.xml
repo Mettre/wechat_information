@@ -31,6 +31,7 @@
                 <result column="publisher_user_id" property="publisherUserId" jdbcType="VARCHAR"/>
                 <result column="user_name" property="publisherUserName" jdbcType="VARCHAR"/>
                 <result column="head_avatar" property="publisherHeadAvatar" jdbcType="VARCHAR"/>
+                <result column="background_wall" property="publisherBackgroundWall" jdbcType="VARCHAR"/>
             </association>
         </association>
         <collection property="replyList" column="dynamicId = moments_id" ofType="Reply"
@@ -40,7 +41,7 @@
     </resultMap>
 
     <sql id="Base_Column_List2">
-    moments_id, moments_title, wc_moments.publisher_user_id,wc_user.user_name,wc_user.head_avatar, wc_moments.creation_time, wc_moments.is_show,
+    moments_id, moments_title, wc_moments.publisher_user_id,wc_user.user_name,wc_user.head_avatar,wc_user.background_wall, wc_moments.creation_time, wc_moments.is_show,
     moments_image,moments_type,DATE_FORMAT(wc_moments.creation_time,'%Y-%m-%d') as date2
   </sql>
 
