@@ -10,8 +10,8 @@ public class MomentsVM {
     @NotBlank(message = "说说内容不能为空")
     private String momentsTitle;
 
-    @NotBlank(message = "发布人不能为空")
-    private String publisherUserId;
+//    @NotBlank(message = "发布人不能为空")
+//    private String publisherUserId;
 
     private String momentsImage;
 

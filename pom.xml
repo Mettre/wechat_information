@@ -124,6 +124,13 @@
             <artifactId>hutool-all</artifactId>
             <version>4.1.12</version>
         </dependency>
+
+        <!--公共类-->
+        <dependency>
+            <groupId>com.mettre</groupId>
+            <artifactId>account</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

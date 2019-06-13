@@ -49,13 +49,14 @@ public class Reply {
     }
 
     //二级评论
-    public Reply(ReplyVM replyVM, String replyParentId, String replyParentUserId, String secondDynamicId) {
+    public Reply(ReplyVM replyVM, String replyParentId, String replyParentUserId, String secondDynamicId,String userId) {
         this.replyId = RandomUtil.ReplyInformationNumber();
         this.dynamicId = replyVM.getDynamicId();
         this.replyParentId = replyParentId;
         this.replyParentUserId = replyParentUserId;
         this.secondDynamicId = secondDynamicId;
-        this.dynamicUserId = replyVM.getDynamicUserId();
+//        this.dynamicUserId = replyVM.getDynamicUserId();
+        this.dynamicUserId = userId;
         this.replyContent = replyVM.getReplyContent();
         this.creationTime = new Date();
         this.isShow = true;
@@ -63,11 +64,11 @@ public class Reply {
     }
 
     //一级评论
-    public Reply(ReplyVM replyVM) {
+    public Reply(ReplyVM replyVM,String userId) {
         this.replyId = RandomUtil.ReplyInformationNumber();
         this.dynamicId = replyVM.getDynamicId();
         this.secondDynamicId = replyId;
-        this.dynamicUserId = replyVM.getDynamicUserId();
+        this.dynamicUserId = userId;
         this.replyContent = replyVM.getReplyContent();
         this.creationTime = new Date();
         this.isShow = true;

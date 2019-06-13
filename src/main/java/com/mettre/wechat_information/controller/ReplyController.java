@@ -1,6 +1,7 @@
 package com.mettre.wechat_information.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mettre.account.jwt.SecurityContextStore;
 import com.mettre.wechat_information.base.Result;
 import com.mettre.wechat_information.base.ResultUtil;
 import com.mettre.wechat_information.pojo.Reply;
@@ -25,7 +26,7 @@ public class ReplyController {
     @Autowired
     public ReplyService replyService;
 
-    @RequestMapping(value = "/addReply", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginEd/addReply", method = RequestMethod.POST)
     @ApiOperation(value = "添加评论")
     public Result<Object> insert(@Valid @RequestBody ReplyVM replyVM) {
         replyService.insert(replyVM);
@@ -51,14 +52,15 @@ public class ReplyController {
         return new ResultUtil<>().setData(replyList);
     }
 
-    @RequestMapping(value = "/deleteReplyFromUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginEd/deleteReplyFromUser", method = RequestMethod.POST)
     @ApiOperation(value = "用户删除评论")
     public Result<Object> deleteReplyFromUser(@RequestBody DeleteReplyMomentsVM deleteReplyMomentsVM) {
-        replyService.deleteByReplyIdAndDynamicUserId(deleteReplyMomentsVM.getReplyId(), deleteReplyMomentsVM.getDynamicUserId());
+        String userId = SecurityContextStore.getContext().getUserId();
+        replyService.deleteByReplyIdAndDynamicUserId(deleteReplyMomentsVM.getReplyId(), userId);
         return new ResultUtil<>().setSuccess();
     }
 
-    @RequestMapping(value = "/deleteReply{replyId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/loginEd/deleteReply{replyId}", method = RequestMethod.GET)
     @ApiOperation(value = "删除评论")
     public Result<Object> deleteReply(@PathVariable String replyId) {
         replyService.deleteByPrimaryKey(replyId);

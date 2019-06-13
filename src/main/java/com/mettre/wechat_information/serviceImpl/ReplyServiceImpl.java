@@ -2,6 +2,7 @@ package com.mettre.wechat_information.serviceImpl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mettre.account.jwt.SecurityContextStore;
 import com.mettre.wechat_information.base.ReturnType;
 import com.mettre.wechat_information.enum_.DynamicTypeEnum;
 import com.mettre.wechat_information.enum_.ResultEnum;
@@ -40,6 +41,8 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public int deleteByPrimaryKey(String replyId) {
+
+        String userId = SecurityContextStore.getContext().getUserId();
         int type = replyMapper.deleteByPrimaryKey(replyId);
         return ReturnType.ReturnType(type, ResultEnum.DELETE_ERROR);
     }
@@ -57,7 +60,7 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public int insert(ReplyVM replyVM) {
-
+        String userId = SecurityContextStore.getContext().getUserId();
         if (!DynamicTypeEnum.contains(replyVM.getDynamicType().name())) {
             throw new CustomerException(ResultEnum.DYNAMICTYPE);
         }
@@ -73,19 +76,19 @@ public class ReplyServiceImpl implements ReplyService {
                     Reply reply = selectByPrimaryKey(replyVM.getReplyParentId());
 
                     if (StrUtil.isNotBlank(reply.getSecondDynamicId())) {
-                        return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getSecondDynamicId()));
+                        return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getSecondDynamicId(),userId));
                     } else {
-                        return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getReplyId()));
+                        return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getReplyId(),userId));
                     }
 
                 } else {
-                    return replyMapper.insert(new Reply(replyVM));
+                    return replyMapper.insert(new Reply(replyVM,userId));
                 }
             case FORUM:
-                return replyMapper.insert(new Reply(replyVM));
+                return replyMapper.insert(new Reply(replyVM,userId));
 
             default:
-                return replyMapper.insert(new Reply(replyVM));
+                return replyMapper.insert(new Reply(replyVM,userId));
 
         }
 

@@ -1,6 +1,7 @@
 package com.mettre.wechat_information.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mettre.account.jwt.SecurityContextStore;
 import com.mettre.wechat_information.base.Result;
 import com.mettre.wechat_information.base.ResultUtil;
 import com.mettre.wechat_information.pojo.MomentsDetails;
@@ -25,33 +26,35 @@ public class MomentsController {
     @Autowired
     public MomentsService momentsService;
 
-    @RequestMapping(value = "/addMoments", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginEd/addMoments", method = RequestMethod.POST)
     @ApiOperation(value = "发布说说")
     public Result<Object> insert(@Valid @RequestBody MomentsVM momentsVM) {
         momentsService.insert(momentsVM);
         return new ResultUtil<>().setSuccess();
     }
 
-    @RequestMapping(value = "/findMomentsListWithPublisherUserId", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginEd/findMomentsListWithPublisherUserId", method = RequestMethod.POST)
     @ApiOperation(value = "查询个人发布的说说")
     public Result<Object> findCategoryList(@Valid @RequestBody PersonalMomentsListVM pageUtil) {
 
         Page<MomentsParameter> page2 = new Page<>(pageUtil.getPage(), pageUtil.getSize());
-        Page<MomentsParameter> momentsList = momentsService.selectPageVo(page2, pageUtil.getPublisherUserId());
+        String userId = SecurityContextStore.getContext().getUserId();
+        Page<MomentsParameter> momentsList = momentsService.selectPageVo(page2, userId);
         return new ResultUtil<>().setData(momentsList);
     }
 
-    @RequestMapping(value = "/circleFriendsList", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginEd/circleFriendsList", method = RequestMethod.POST)
     @ApiOperation(value = "我的朋友圈们")
     public Result<Object> circleFriendsList(@Valid @RequestBody MomentsListVM pageUtil) {
 
         Page<MomentsParameter> page = new Page<>(pageUtil.getPage(), pageUtil.getSize());
-        Page<MomentsParameter> momentsList = momentsService.circleFriendsPageVo(page, pageUtil.getUserId());
+        String userId = SecurityContextStore.getContext().getUserId();
+        Page<MomentsParameter> momentsList = momentsService.circleFriendsPageVo(page, userId);
         return new ResultUtil<>().setData(momentsList);
     }
 
 
-    @RequestMapping(value = "/selectMomentsDetails/{momentsId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/loginEd/selectMomentsDetails/{momentsId}", method = RequestMethod.GET)
     @ApiOperation(value = "说说详情+评论")
     public Result<Object> selectMomentsDetails(@PathVariable String momentsId) {
         MomentsDetails momentsDetails = momentsService.selectMomentsDetails(momentsId);

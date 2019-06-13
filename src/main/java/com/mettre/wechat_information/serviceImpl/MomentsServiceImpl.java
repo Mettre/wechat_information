@@ -1,6 +1,7 @@
 package com.mettre.wechat_information.serviceImpl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mettre.account.jwt.SecurityContextStore;
 import com.mettre.wechat_information.base.Result;
 import com.mettre.wechat_information.dto.UserDto;
 import com.mettre.wechat_information.enum_.ResultEnum;
@@ -35,11 +36,12 @@ public class MomentsServiceImpl implements MomentsService {
 
     @Override
     public int insert(MomentsVM momentsVM) {
-        Result<UserDto> userDtoResult = userClient.findUserInfo(momentsVM.getPublisherUserId());
+        String userId = SecurityContextStore.getContext().getUserId();
+        Result<UserDto> userDtoResult = userClient.findUserInfo(userId);
         if (userDtoResult.getData() == null) {
             throw new CustomerException(ResultEnum.USEREMPTY);
         }
-        return momentsMapper.insert(new Moments(momentsVM));
+        return momentsMapper.insert(new Moments(momentsVM, userId));
     }
 
     @Override

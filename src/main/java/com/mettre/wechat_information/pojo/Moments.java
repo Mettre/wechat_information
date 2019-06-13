@@ -34,10 +34,10 @@ public class Moments {
 
     }
 
-    public Moments(MomentsVM momentsVM) {
+    public Moments(MomentsVM momentsVM,String userId) {
         this.momentsId = RandomUtil.generateUserId();
         this.momentsTitle = momentsVM.getMomentsTitle();
-        this.publisherUserId = momentsVM.getPublisherUserId();
+        this.publisherUserId = userId;
         this.creationTime = new Date();
         this.isShow = true;
         this.momentsImage = momentsVM.getMomentsImage();
