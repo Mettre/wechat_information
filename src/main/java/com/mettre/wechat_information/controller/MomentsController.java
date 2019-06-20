@@ -38,8 +38,7 @@ public class MomentsController {
     public Result<Object> findCategoryList(@Valid @RequestBody PersonalMomentsListVM pageUtil) {
 
         Page<MomentsParameter> page2 = new Page<>(pageUtil.getPage(), pageUtil.getSize());
-        String userId = SecurityContextStore.getContext().getUserId();
-        Page<MomentsParameter> momentsList = momentsService.selectPageVo(page2, userId);
+        Page<MomentsParameter> momentsList = momentsService.selectPageVo(page2, pageUtil.getPublisherUserId());
         return new ResultUtil<>().setData(momentsList);
     }
 

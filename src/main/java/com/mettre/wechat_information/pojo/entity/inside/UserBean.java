@@ -13,4 +13,6 @@ public class UserBean {
 
     private String publisherBackgroundWall;
 
+    private String signature;
+
 }
