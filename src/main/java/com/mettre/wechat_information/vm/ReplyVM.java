@@ -12,9 +12,6 @@ public class ReplyVM {
     @NotBlank(message = "资讯id不能为空")
     private String dynamicId;
 
-//    @NotBlank(message = "该评论人id不能为空")
-    private String dynamicUserId;
-
     @NotBlank(message = "评论内容不能为空")
     private String replyContent;
 

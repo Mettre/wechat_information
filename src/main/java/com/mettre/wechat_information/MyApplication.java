@@ -42,7 +42,6 @@ public class MyApplication {
         registrationBean.setFilter(new JwtFilter());
         List<String> urlPatterns = new ArrayList<String>();
         urlPatterns.add("/loginEd/*");
-        urlPatterns.add("/api/user/loginEd/*");
         registrationBean.setUrlPatterns(urlPatterns);
         return registrationBean;
     }

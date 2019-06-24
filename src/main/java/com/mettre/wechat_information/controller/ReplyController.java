@@ -41,22 +41,22 @@ public class ReplyController {
         String dynamicId = map.get("dynamicId").toString();
         String userId = map.get("userId").toString();
         Page<Reply> page2 = new Page<>(page, size);
-        Page<Reply> addressList = replyService.selectPageVo(page2, dynamicId,userId);
+        Page<Reply> addressList = replyService.selectPageVo(page2, dynamicId, userId);
         return new ResultUtil<>().setData(addressList);
     }
 
     @RequestMapping(value = "/findMomentsReplyList", method = RequestMethod.GET)
-    @ApiOperation(value = "微信评论列表")
-    public Result<Object> findMomentsCategoryList(@RequestParam String dynamicId,String userId) {
-        List<Reply> replyList = replyService.selectMomentsReply(dynamicId,userId);
+    @ApiOperation(value = "朋友圈评论列表")
+    public Result<Object> findMomentsCategoryList(@RequestParam String dynamicId, String userId) {
+        List<Reply> replyList = replyService.selectMomentsReply(dynamicId, userId);
         return new ResultUtil<>().setData(replyList);
     }
 
-    @RequestMapping(value = "/loginEd/deleteReplyFromUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginEd/deleteReplyFromUser{replyId}", method = RequestMethod.GET)
     @ApiOperation(value = "用户删除评论")
-    public Result<Object> deleteReplyFromUser(@RequestBody DeleteReplyMomentsVM deleteReplyMomentsVM) {
+    public Result<Object> deleteReplyFromUser(@PathVariable String replyId) {
         String userId = SecurityContextStore.getContext().getUserId();
-        replyService.deleteByReplyIdAndDynamicUserId(deleteReplyMomentsVM.getReplyId(), userId);
+        replyService.deleteByReplyIdAndDynamicUserId(replyId, userId);
         return new ResultUtil<>().setSuccess();
     }
 

@@ -50,8 +50,11 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public int deleteByReplyIdAndDynamicUserId(String replyId, String dynamicUserId) {
         Reply reply = replyMapper.selectByPrimaryKey(replyId);
+        if (reply == null) {
+            throw new CustomerException("该评论不存在或已被删除");
+        }
         if (!dynamicUserId.equals(reply.getDynamicUserId())) {
-            throw new CustomerException("暂无权限");
+            throw new CustomerException("暂无权限删除该评论");
         }
         int type = replyMapper.deleteByPrimaryKey(replyId);
         return ReturnType.ReturnType(type, ResultEnum.DELETE_ERROR);
@@ -76,19 +79,19 @@ public class ReplyServiceImpl implements ReplyService {
                     Reply reply = selectByPrimaryKey(replyVM.getReplyParentId());
 
                     if (StrUtil.isNotBlank(reply.getSecondDynamicId())) {
-                        return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getSecondDynamicId(),userId));
+                        return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getSecondDynamicId(), userId));
                     } else {
-                        return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getReplyId(),userId));
+                        return replyMapper.insert(new Reply(replyVM, reply.getReplyId(), reply.getDynamicUserId(), reply.getReplyId(), userId));
                     }
 
                 } else {
-                    return replyMapper.insert(new Reply(replyVM,userId));
+                    return replyMapper.insert(new Reply(replyVM, userId));
                 }
             case FORUM:
-                return replyMapper.insert(new Reply(replyVM,userId));
+                return replyMapper.insert(new Reply(replyVM, userId));
 
             default:
-                return replyMapper.insert(new Reply(replyVM,userId));
+                return replyMapper.insert(new Reply(replyVM, userId));
 
         }
 
@@ -119,15 +122,15 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public Page<Reply> selectPageVo(Page<Reply> page, String dynamicId,String userId) {
-        List<Reply> addressList = (List<Reply>) replyMapper.selectPageVo(page, dynamicId,userId);
+    public Page<Reply> selectPageVo(Page<Reply> page, String dynamicId, String userId) {
+        List<Reply> addressList = (List<Reply>) replyMapper.selectPageVo(page, dynamicId, userId);
         page = page.setRecords(addressList);
         return page;
     }
 
     @Override
-    public List<Reply> selectMomentsReply(String dynamicId,String userId) {
-        List<Reply> replyList = (List<Reply>) replyMapper.selectMomentsReply(dynamicId,userId);
+    public List<Reply> selectMomentsReply(String dynamicId, String userId) {
+        List<Reply> replyList = (List<Reply>) replyMapper.selectMomentsReply(dynamicId, userId);
         return replyList;
     }
 }

@@ -46,7 +46,7 @@
     <sql id="Base_Column_List2">
     reply_id, reply_parent_user_id, dynamic_user_id, reply_content,reply_parent_id,
     wc_reply.creation_time, wc_reply.is_show,wc_user1.user_name user_name1,wc_user1.head_avatar,wc_user2.user_name user_name2,second_dynamic_id
-    ,if(dynamic_user_id=#{userId,jdbcType=VARCHAR},true ,false ) as own
+    ,if(dynamic_user_id=#{userId,jdbcType=VARCHAR},true ,false) as own
   </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
