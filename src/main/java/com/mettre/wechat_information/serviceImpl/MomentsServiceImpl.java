@@ -2,6 +2,8 @@ package com.mettre.wechat_information.serviceImpl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.account.jwt.SecurityContextStore;
+import com.mettre.account.pojoVM.VisitorRpcVM;
+import com.mettre.account.pojoVM.VisitorVM;
 import com.mettre.wechat_information.base.Result;
 import com.mettre.wechat_information.dto.UserDto;
 import com.mettre.wechat_information.enum_.ResultEnum;
@@ -70,6 +72,14 @@ public class MomentsServiceImpl implements MomentsService {
 
     @Override
     public Page<MomentsParameter> selectPageVo(Page<MomentsParameter> page, String publisherUserId) {
+        String userId = SecurityContextStore.getContext().getUserId();
+        if (!userId.equals(publisherUserId)) {
+            VisitorRpcVM visitorVM = new VisitorRpcVM();
+            visitorVM.setUserId(userId);
+            visitorVM.setVisitorsUser(publisherUserId);
+            Result<Object> s = userClient.addVisitor(visitorVM);
+            System.out.println(s.toString());
+        }
         List<MomentsParameter> momentsList = (List<MomentsParameter>) momentsMapper.selectPageVo(page, publisherUserId);
         page = page.setRecords(momentsList);
         return page;
