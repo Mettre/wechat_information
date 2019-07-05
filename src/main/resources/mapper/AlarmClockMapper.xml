@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mettre.wechat_information.mapper.AlarmClockMapper">
+    <resultMap id="BaseResultMap" type="com.mettre.wechat_information.pojo.AlarmClock">
+        <id column="clock_id" property="clockId" jdbcType="VARCHAR"/>
+        <result column="equipment_id" property="equipmentId" jdbcType="VARCHAR"/>
+        <result column="clock_theme" property="clockTheme" jdbcType="VARCHAR"/>
+        <result column="many" property="many" jdbcType="INTEGER"/>
+        <result column="music" property="music" jdbcType="VARCHAR"/>
+        <result column="is_open" property="isOpen" jdbcType="TINYINT"/>
+        <result column="is_shock" property="isShock" jdbcType="TINYINT"/>
+        <result column="frequency" property="frequency" jdbcType="VARCHAR"/>
+        <result column="custom_day" property="customDay" jdbcType="VARCHAR"/>
+
+        <association property="clockTime" javaType="com.mettre.wechat_information.pojo.ClockTimeBean">
+            <result column="hours" property="hours" jdbcType="INTEGER"/>
+            <result column="minutes" property="minutes" jdbcType="INTEGER"/>
+            <result column="seconds" property="seconds" jdbcType="INTEGER"/>
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
+    clock_id, equipment_id, clock_theme, many, music, is_open, is_shock,
+    frequency, custom_day,hours,minutes,seconds
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from alarm_clock
+        where clock_id = #{clockId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from alarm_clock
+    where clock_id = #{clockId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.mettre.wechat_information.pojo.AlarmClock">
+    insert into alarm_clock (clock_id, equipment_id, hours, minutes,seconds,
+      clock_theme, many, music, 
+      is_open, is_shock, frequency, 
+      custom_day)
+    values (#{clockId,jdbcType=VARCHAR}, #{equipmentId,jdbcType=VARCHAR},#{clockTime.hours,jdbcType=INTEGER},#{clockTime.minutes,jdbcType=INTEGER},#{clockTime.seconds,jdbcType=INTEGER},
+      #{clockTheme,jdbcType=VARCHAR}, #{many,jdbcType=INTEGER}, #{music,jdbcType=VARCHAR}, 
+      #{isOpen,jdbcType=TINYINT}, #{isShock,jdbcType=TINYINT}, #{frequency,jdbcType=VARCHAR}, 
+      #{customDay,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.mettre.wechat_information.pojo.AlarmClock">
+        insert into alarm_clock
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clockId != null">
+                clock_id,
+            </if>
+            <if test="equipmentId != null">
+                equipment_id,
+            </if>
+            <if test="clockTime.hours != null">
+                hours,
+            </if>
+            <if test="clockTime.minutes != null">
+                minutes,
+            </if>
+            <if test="clockTime.seconds != null">
+                seconds,
+            </if>
+            <if test="clockTheme != null">
+                clock_theme,
+            </if>
+            <if test="many != null">
+                many,
+            </if>
+            <if test="music != null">
+                music,
+            </if>
+            <if test="isOpen != null">
+                is_open,
+            </if>
+            <if test="isShock != null">
+                is_shock,
+            </if>
+            <if test="frequency != null">
+                frequency,
+            </if>
+            <if test="customDay != null">
+                custom_day,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="clockId != null">
+                #{clockId,jdbcType=VARCHAR},
+            </if>
+            <if test="equipmentId != null">
+                #{equipmentId,jdbcType=VARCHAR},
+            </if>
+            <if test="clockTime.hours != null">
+                #{clockTime.hours,jdbcType=INTEGER},
+            </if>
+            <if test="clockTime.minutes != null">
+                #{clockTime.minutes,jdbcType=INTEGER},
+            </if>
+            <if test="clockTime.seconds != null">
+                #{clockTime.seconds,jdbcType=INTEGER},
+            </if>
+            <if test="clockTheme != null">
+                #{clockTheme,jdbcType=VARCHAR},
+            </if>
+            <if test="many != null">
+                #{many,jdbcType=INTEGER},
+            </if>
+            <if test="music != null">
+                #{music,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpen != null">
+                #{isOpen,jdbcType=TINYINT},
+            </if>
+            <if test="isShock != null">
+                #{isShock,jdbcType=TINYINT},
+            </if>
+            <if test="frequency != null">
+                #{frequency,jdbcType=VARCHAR},
+            </if>
+            <if test="customDay != null">
+                #{customDay,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mettre.wechat_information.pojo.AlarmClock">
+        update alarm_clock
+        <set>
+            <if test="equipmentId != null">
+                equipment_id = #{equipmentId,jdbcType=VARCHAR},
+            </if>
+            <if test="clockTime.hours != null">
+                hours = #{clockTime.hours,jdbcType=INTEGER},
+            </if>
+            <if test="clockTime.minutes != null">
+                minutes = #{clockTime.hours,jdbcType=INTEGER},
+            </if>
+            <if test="clockTime.seconds != null">
+                seconds = #{clockTime.hours,jdbcType=INTEGER},
+            </if>
+            <if test="clockTheme != null">
+                clock_theme = #{clockTheme,jdbcType=VARCHAR},
+            </if>
+            <if test="many != null">
+                many = #{many,jdbcType=INTEGER},
+            </if>
+            <if test="music != null">
+                music = #{music,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpen != null">
+                is_open = #{isOpen,jdbcType=TINYINT},
+            </if>
+            <if test="isShock != null">
+                is_shock = #{isShock,jdbcType=TINYINT},
+            </if>
+            <if test="frequency != null">
+                frequency = #{frequency,jdbcType=VARCHAR},
+            </if>
+            <if test="customDay != null">
+                custom_day = #{customDay,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where clock_id = #{clockId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mettre.wechat_information.pojo.AlarmClock">
+    update alarm_clock
+    set equipment_id = #{equipmentId,jdbcType=VARCHAR},
+       hours = #{clockTime.hours,jdbcType=INTEGER},
+        minutes = #{clockTime.minutes,jdbcType=INTEGER},
+         seconds = #{clockTime.seconds,jdbcType=INTEGER},
+      clock_theme = #{clockTheme,jdbcType=VARCHAR},
+      many = #{many,jdbcType=INTEGER},
+      music = #{music,jdbcType=VARCHAR},
+      is_open = #{isOpen,jdbcType=TINYINT},
+      is_shock = #{isShock,jdbcType=TINYINT},
+      frequency = #{frequency,jdbcType=VARCHAR},
+      custom_day = #{customDay,jdbcType=VARCHAR}
+    where clock_id = #{clockId,jdbcType=VARCHAR}
+  </update>
+</mapper>
