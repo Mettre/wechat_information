@@ -15,14 +15,6 @@ public enum DynamicTypeEnum {
         return super.toString();
     }
 
-    public String getDynamicType() {
-        return dynamicType;
-    }
-
-    public void setDynamicType(String dynamicType) {
-        this.dynamicType = dynamicType;
-    }
-
     public static boolean contains(String dynamicType) {
         for (DynamicTypeEnum typeEnum : DynamicTypeEnum.values()) {
             if (typeEnum.name().equals(dynamicType)) {

@@ -56,6 +56,14 @@ public final class RandomUtil {
     }
 
     /**
+     * 闹钟id
+     * @return
+     */
+    public static String AlarmClockNumber() {
+        return "C" + DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(4);
+    }
+
+    /**
      * 评论id
      * @return
      */
