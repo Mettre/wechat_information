@@ -1,6 +1,6 @@
 package com.mettre.wechat_information.dto;
 
-import com.mettre.wechat_information.enum_.GenderEnum;
+import com.mettre.account.enum_.GenderEnum;
 import lombok.Data;
 
 import java.util.Date;
