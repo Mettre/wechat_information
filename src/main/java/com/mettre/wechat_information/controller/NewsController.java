@@ -1,8 +1,8 @@
 package com.mettre.wechat_information.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mettre.wechat_information.base.Result;
-import com.mettre.wechat_information.base.ResultUtil;
+import com.mettre.base.Result;
+import com.mettre.base.ResultUtil;
 import com.mettre.wechat_information.pojo.News;
 import com.mettre.wechat_information.service.NewsService;
 import com.mettre.wechat_information.vm.NewsVM;

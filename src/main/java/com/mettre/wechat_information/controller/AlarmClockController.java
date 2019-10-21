@@ -1,7 +1,7 @@
 package com.mettre.wechat_information.controller;
 
-import com.mettre.wechat_information.base.Result;
-import com.mettre.wechat_information.base.ResultUtil;
+import com.mettre.base.Result;
+import com.mettre.base.ResultUtil;
 import com.mettre.wechat_information.pojo.AlarmClock;
 import com.mettre.wechat_information.pojo.ClockTimeBean;
 import com.mettre.wechat_information.service.AlarmClockService;

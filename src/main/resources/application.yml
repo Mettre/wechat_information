@@ -32,10 +32,10 @@ eureka:
       serviceUrl:
                  defaultZone: http://localhost:8761/eureka/
 
-# 打印sql
-logging:
-  level:
-     com.mettre.wechat_information.mapper : debug
+## 打印sql
+#logging:
+#  level:
+#     com.mettre.wechat_information.mapper : debug
 
 
 

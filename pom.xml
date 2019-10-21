@@ -128,9 +128,16 @@
         <!--公共类-->
         <dependency>
             <groupId>com.mettre</groupId>
-            <artifactId>account</artifactId>
+            <artifactId>wechat-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <!-- 添加Gson依赖 -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

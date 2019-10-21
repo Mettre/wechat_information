@@ -1,14 +1,11 @@
 package com.mettre.wechat_information.serviceImpl;
 
-import com.mettre.wechat_information.enum_.DynamicTypeEnum;
+import com.alibaba.druid.util.StringUtils;
+import com.mettre.exception.CustomerException;
 import com.mettre.wechat_information.enum_.FrequencyEnum;
-import com.mettre.wechat_information.enum_.ResultEnum;
-import com.mettre.wechat_information.exception.CustomerException;
 import com.mettre.wechat_information.mapper.AlarmClockMapper;
 import com.mettre.wechat_information.pojo.AlarmClock;
-import com.mettre.wechat_information.pojo.ClockTimeBean;
 import com.mettre.wechat_information.service.AlarmClockService;
-import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +29,7 @@ public class AlarmClockServiceImpl implements AlarmClockService {
             throw new CustomerException("闹钟类型不能为空");
         }
         if (alarmClock.getFrequency() == FrequencyEnum.CUSTOM) {
-            if (TextUtils.isEmpty(alarmClock.getCustomDay())) {
+            if (StringUtils.isEmpty(alarmClock.getCustomDay())) {
                 throw new CustomerException("自定义日期不能为空");
             }
         } else {

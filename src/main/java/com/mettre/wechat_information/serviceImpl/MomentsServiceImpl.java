@@ -1,13 +1,13 @@
 package com.mettre.wechat_information.serviceImpl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mettre.account.jwt.SecurityContextStore;
-import com.mettre.account.pojoVM.VisitorRpcVM;
-import com.mettre.account.pojoVM.VisitorVM;
-import com.mettre.wechat_information.base.Result;
-import com.mettre.wechat_information.dto.UserDto;
-import com.mettre.wechat_information.enum_.ResultEnum;
-import com.mettre.wechat_information.exception.CustomerException;
+import com.mettre.base.Result;
+import com.mettre.dto.UserDto;
+import com.mettre.enum_.ResultEnum;
+import com.mettre.exception.CustomerException;
+//import com.mettre.feign.UserClient;
+import com.mettre.jwt.SecurityContextStore;
+import com.mettre.vm.VisitorRpcVM;
 import com.mettre.wechat_information.feign.UserClient;
 import com.mettre.wechat_information.mapper.MomentsMapper;
 import com.mettre.wechat_information.pojo.Moments;

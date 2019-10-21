@@ -1,6 +1,6 @@
 package com.mettre.wechat_information;
 
-import com.mettre.account.jwt.JwtFilter;
+import com.mettre.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

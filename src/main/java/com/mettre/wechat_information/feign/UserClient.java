@@ -1,10 +1,8 @@
 package com.mettre.wechat_information.feign;
 
-import com.mettre.account.pojoVM.VisitorRpcVM;
-import com.mettre.account.pojoVM.VisitorVM;
-import com.mettre.wechat_information.base.Result;
-import com.mettre.wechat_information.dto.UserDto;
-import org.apache.ibatis.jdbc.Null;
+import com.mettre.base.Result;
+import com.mettre.dto.UserDto;
+import com.mettre.vm.VisitorRpcVM;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
